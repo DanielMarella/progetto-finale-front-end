@@ -1,7 +1,7 @@
 <script>
 import HeaderApp from './components/HeaderApp.vue'
 import FooterApp from './components/FooterApp.vue'
-
+import 'bootstrap/scss/bootstrap.scss'
   export default{
     name : 'App',
 
@@ -28,16 +28,4 @@ import FooterApp from './components/FooterApp.vue'
 @use './styles/general.scss' as *;
 
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
 </style>

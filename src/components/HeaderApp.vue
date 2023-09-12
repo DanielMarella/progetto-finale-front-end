@@ -1,13 +1,52 @@
 <template >
-    <div>
-        <h1>Header</h1>
-    </div>
+    <nav>
+        <ul>
+            <li v-for="link in links"> 
+                <router-link :to="link.route">
+                    {{ link.name }}
+                </router-link>
+            </li>
+        </ul>
+    </nav>
 </template>
+
+
 <script>
+
 export default {
-    name: 'HeaderApp'
+    name: 'HeaderApp',
+
+    data() {
+        return {
+            links : [
+                {
+                    route: './',
+                    name: 'HomePage'
+                },
+                {
+                    route: './advance-search',
+                    name: 'AdvanceSearch'
+                },
+                {
+                    route: './DashboardMusician',
+                    name: 'DashboardMusician'
+                },
+                {
+                    route: './SingleMusician',
+                    name: 'SingleMusician'
+                },
+            ]
+        }
+    },
+
 }
+
+
 </script>
+
+
+
+
 <style lang="scss">
     
 </style>

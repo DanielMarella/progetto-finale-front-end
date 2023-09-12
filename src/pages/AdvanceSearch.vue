@@ -1,6 +1,8 @@
 <template>
     <div>
-        
+        <h1>
+            advance-search
+        </h1>
     </div>
 </template>
 
