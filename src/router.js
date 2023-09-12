@@ -5,6 +5,7 @@ import AdvanceSearch from './pages/AdvanceSearch.vue';
 import DashboardMusician from './pages/DashboardMusician.vue';
 import SingleMusician from './pages/SingleMusician.vue';
 import Register from './pages/Register.vue';
+import Login from './pages/Login.vue';
 
 
 
@@ -37,6 +38,11 @@ const router= createRouter({
             path: '/Register',
             name: 'Register',
             component: Register,
+        },
+        {
+            path: '/Login',
+            name: 'Login',
+            component: Login,
         },
 
 
