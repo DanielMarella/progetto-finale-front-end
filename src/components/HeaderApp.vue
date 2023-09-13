@@ -37,8 +37,13 @@ export default {
                 },
                 {
 <<<<<<< HEAD
+<<<<<<< HEAD
                     route: './Register',
                     name: 'Register'
+=======
+                    route: './Login',
+                    name: 'Login'
+>>>>>>> 05d3d2e1e1ddd1167ebe544668aafd4d4e36133e
 =======
                     route: './Login',
                     name: 'Login'

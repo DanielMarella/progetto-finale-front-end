@@ -1,7 +1,10 @@
 <template>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> 05d3d2e1e1ddd1167ebe544668aafd4d4e36133e
     <div class="container w-75 border rounded">
         <div class="row">
             <div class="col-12">
@@ -29,6 +32,9 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+>>>>>>> 05d3d2e1e1ddd1167ebe544668aafd4d4e36133e
+=======
 >>>>>>> 05d3d2e1e1ddd1167ebe544668aafd4d4e36133e
 </template>
 
@@ -40,8 +46,11 @@ export default {
 
 <style lang="scss" scoped>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> 05d3d2e1e1ddd1167ebe544668aafd4d4e36133e
     div.container{
         box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 
@@ -49,5 +58,8 @@ export default {
             text-decoration: none;
         }
     }
+<<<<<<< HEAD
+>>>>>>> 05d3d2e1e1ddd1167ebe544668aafd4d4e36133e
+=======
 >>>>>>> 05d3d2e1e1ddd1167ebe544668aafd4d4e36133e
 </style>
