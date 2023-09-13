@@ -25,7 +25,7 @@
                         <button type="submit" class="btn btn-primary">Login</button>
                     </div>
 
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center mb-2">
                         <span>Don't have an account? <router-link to="/Register">Signup</router-link></span>
                     </div>
                 </form>
