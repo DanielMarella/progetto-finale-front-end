@@ -1,81 +1,128 @@
 <template>
 
-<div class="col-12 d-flex w-75 m-auto">
-    <div class="col-2 b-blu pt-5">
-        <nav>
-            <ul>
-                <li>
-                    <button class="btn btn-small btn-primary">Profile</button>
-                </li>
-                <li>
-                    <button class="btn btn-small btn-primary">Edit Profile</button>
-                </li>
-                <li>
-                    <button class="btn btn-small btn-primary">My Messages</button>
-                </li>
-                <li>
-                    <button class="btn btn-small btn-primary">My Reviews</button>
-                </li>
-                <li>
-                    <button class="btn btn-small btn-primary">Statistics</button>
-                </li>
-            </ul>
-        </nav>
-    </div>
-
-    <div class="col b-red w-100">
-        <div class="col-12 b-blu mb-5">
-            <h1 class="mx-4 mt-3 mb-4">
-                Hello, *nomeUtente*
-            </h1>
-        </div>
-
-        <div class="wrapper d-flex flex-wrap">
-
-            <div class="col-8 d-flex ">
-                <div class="col-5 b-green mx-4 ">
-                    message
+    <div class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <img src="" alt="LogoSito">
+                    <h2>NomeSito</h2>
                 </div>
-                <div class="col-5 b-green ms-4">
-                    Reviews
+                <div class="close" id="close-btn">
+                    <i class="fa-solid fa-xmark"></i>
                 </div>
+            </div>
                 
-
+            <div class="sidebar">
+                <a href="#" class="active">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <h3>Dashboard</h3>
+                </a>
+                
+                <a href="#">
+                    <i class="fa-solid fa-user"></i>
+                    <h3>Information</h3>
+                </a>
+                
+                <a href="#">
+                    <i class="fa-solid fa-envelope"></i>
+                    <h3>Messages</h3>
+                </a>
+                
+                <a href="#">
+                    <i class="fa-solid fa-star"></i>
+                    <h3>Reviews</h3>
+                </a>
+                
+                <a href="#">
+                    <i class="fa-brands fa-connectdevelop"></i>
+                    <h3>Sponsor</h3>
+                </a>
+                
+                <a href="#">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <h3>Statistics</h3>
+                </a>
             </div>
+        </aside>
+        
+        <!-- Fine della barra laterale -->
+        
+        <main class="d-flex flex-column">
+            <h1 class="text-center">Dashboard</h1>
+            <div class="insights container">
+                <div class="row">
 
-
-            <div class="col-4">
-                <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="Immagine Utente">
-                    <div class="card-body">
-                        <h5 class="card-title">NomeUtente</h5>
+                    <!-- Messaggi -->
+                    <div class="card messages col-md-4 mb-4">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <i class="fa-solid fa-envelope-open-text bg-primary text-white p-3 rounded-circle"></i>
+                            <h3 class="card-title">Total Messages</h3>
+                            <!-- Numero di messaggi da inserire -->
+                            <h1 class="text-primary">*Nmess*</h1>
+                            <div class="my_progress">
+                                <div class="middle">
+                                    <svg>
+                                        <circle cx="38" cy="38" r="36"></circle>
+                                    </svg>
+                                    <div class="number">
+                                        <p>%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <hr>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">An item</li>
-                        <li class="list-group-item">A second item</li>
-                        <li class="list-group-item">A third item</li>
-                    </ul>
+                
+                
+                    <!-- Recensioni -->
+                
+                    <div class="card reviews col-md-4 mb-4">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <i class="fa-solid fa-ranking-star bg-warning text-white p-3 rounded-circle"></i>
+                            <h3 class="card-title">Total Reviews</h3>
+                            <!-- Numero di recensioni da inserire -->
+                            <h1 class="text-warning">*Nrew*</h1>
+                            <div class="my_progress">
+                                <div class="middle">
+                                    <svg>
+                                        <circle cx="38" cy="38" r="36"></circle>
+                                    </svg>
+                                    <div class="number">
+                                        <p>%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <div class="card-body">
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
+
+                    <div class="card user-profile col-md-3 mb-4">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <img src="url_dell_immagine" class="profile-picture rounded-circle" alt="Profile Picture">
+                            <h3 class="card-title">User's Profile</h3>
+                            <h4 class="text-primary">John Doe</h4>
+                            <p class="text-muted">Email: johndoe@example.com</p>
+                        </div>
+                    </div>
+
+
+                    <div class="card statistics col-md-8 mb-4">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <i class="fa-solid fa-envelope-open-text bg-primary text-white p-3 rounded-circle"></i>
+                            <h3 class="card-title">statistics</h3>
+                            <!-- Numero di messaggi da inserire -->
+                            <h1 class="text-primary">statistiche</h1>
+                            <div class="my_progress">
+                                <div class="middle">
+                                    <div class="number">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-8 d-flex mt-5 ">
-                <div class="col-5 mx-4 b-green  my_height">
-                    Statistics
-                </div>
-            </div>
-
-        </div>
-
-
+        </main>
     </div>
-</div>
-
 </template>
 
 
@@ -89,35 +136,126 @@ export default {
 
 <style lang="scss" scoped>
 
-        .b-blu{
-            border: 2px solid blue;
-        }
+.container {
+    display: flex;
+    gap: 2rem;
 
-        .b-red{
-            border: 2px solid red;
-        }
-
-        .b-green{
-            border: 2px solid lime;
-        }
-    
-
-    ul{
-        list-style-type: none;
-        margin: 0 auto;
-
-
-        li{
-            margin-bottom: 2rem;
-            
-        }
+    h3{
+        font-size: .7rem;
     }
 
-    nav{
-        height: 70vh;
+}
+
+aside {
+    width: 14rem;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.4rem;
+    position: sticky;
+    top: 0;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.4rem;
+}
+
+.logo img {
+    width: 2rem;
+    height: 2rem;
+}
+
+.logo {
+    display: flex;
+    gap: 2rem;
+}
+
+.close {
+    display: none;
+}
+
+.sidebar {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 3rem;
+}
+
+
+
+a {
+    display: flex;
+    margin-left: 2rem;
+    padding: 0 20px 0 0;
+    gap: 1rem;
+    align-items: center;
+    // justify-content: center;
+    position: relative;
+    height: 3.7rem;
+    transition: all 300ms ease;
+}
+
+.active {
+    background-color: lightcoral;
+    color: blue;
+    margin-left: .2rem;
+
+    i {
+        margin-left: calc(1rem - 3px);
     }
+}
+
+.active::before {
+    content: '';
+    width: 6px;
+    height: 100%;
+    background-color: red;
+}
+
+i {
+    font-size: 1.3rem;
+    transition: all 300ms ease;
+}
+
+aside .sidebar a:hover {
+    color: orangered;
+}
+
+aside .sidebar a:hover i {
+    margin-left: .3rem;
+}
+
+main {
+    background-color: orange;
+}
+
+.insights {
 
 
+    div {
+        margin-top: 1rem;
+        border-radius: 5%;
+        padding: .2rem;
+        gap: 2rem;
 
+        i {
+            padding: .5rem;
+            border-radius: 50%;
+            font-size: 1rem;
+            color: white;
+        }
+
+        .middle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+}
     
 </style>
