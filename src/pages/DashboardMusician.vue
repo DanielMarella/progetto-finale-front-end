@@ -194,7 +194,6 @@ a {
     padding: 0 20px 0 0;
     gap: 1rem;
     align-items: center;
-    // justify-content: center;
     position: relative;
     height: 3.7rem;
     transition: all 300ms ease;
@@ -206,13 +205,13 @@ a {
     margin-left: .2rem;
 
     i {
-        margin-left: calc(1rem - 3px);
+        margin-left: calc(1rem - 2px);
     }
 }
 
 .active::before {
     content: '';
-    width: 6px;
+    width: 4px;
     height: 100%;
     background-color: red;
 }
