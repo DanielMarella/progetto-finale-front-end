@@ -35,6 +35,10 @@ export default {
                     route: './SingleMusician',
                     name: 'SingleMusician'
                 },
+                {
+                    route: './Register',
+                    name: 'Register'
+                },
             ]
         }
     },
