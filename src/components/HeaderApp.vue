@@ -43,11 +43,6 @@ export default {
                     route: './Login',
                     name: 'Login'
                 },
-                {
-                    route: './Login',
-                    name: 'Login'
-
-                },
             ]
         }
     },
