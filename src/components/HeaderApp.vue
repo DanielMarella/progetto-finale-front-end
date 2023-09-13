@@ -36,14 +36,14 @@ export default {
                     name: 'SingleMusician'
                 },
                 {
-
                     route: './Register',
                     name: 'Register'
-
+                },
+                {
                     route: './Login',
                     name: 'Login'
-
-
+                },
+                {
                     route: './Login',
                     name: 'Login'
 
