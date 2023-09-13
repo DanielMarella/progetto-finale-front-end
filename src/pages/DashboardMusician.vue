@@ -46,6 +46,18 @@
                         </a>
                     </div>
                 </aside>
+
+    <div class="container mt-5">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <img src="" alt="LogoSito">
+                    <h2>NomeSito</h2>
+                </div>
+                <div class="close" id="close-btn">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+
             </div>
             
             <div class="col b-black">
