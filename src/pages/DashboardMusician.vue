@@ -46,18 +46,6 @@
                         </a>
                     </div>
                 </aside>
-
-    <div class="container mt-5">
-        <aside>
-            <div class="top">
-                <div class="logo">
-                    <img src="" alt="LogoSito">
-                    <h2>NomeSito</h2>
-                </div>
-                <div class="close" id="close-btn">
-                    <i class="fa-solid fa-xmark"></i>
-                </div>
-
             </div>
             
             <div class="col b-black">
@@ -104,8 +92,7 @@
                         <!-- recensioni -->
                         <div class="col-3 rounded-4 b-black">
                             <h1>Recensioni</h1>
-                            <div class="row b-red mt-5 mb-5 flex-nowrap align-items-center">
-
+                            <div class="row b-red mt-5 flex-nowrap align-items-center">
                                 <div class=" ms-2 vote justify-content-center">
                                     <p class="mt-2">
                                         voto
@@ -117,8 +104,7 @@
                             </div>
 
 
-                            <div class="row b-red  mb-5 flex-nowrap align-items-center">
-
+                            <div class="row b-red mt-5 flex-nowrap align-items-center">
                                 <div class=" ms-2 vote justify-content-center">
                                     <p class="mt-2">
                                         voto
@@ -129,7 +115,7 @@
                                 </div>
                             </div>
 
-                            <div class="row b-red  mb-5 flex-nowrap align-items-center">
+                            <div class="row b-red mt-5 flex-nowrap align-items-center">
                                 <div class=" ms-2 vote justify-content-center">
                                     <p class="mt-2">
                                         voto
@@ -142,7 +128,7 @@
 
 
                             <div class="row">
-                                <div class="col text-end ">
+                                <div class="col text-end mt-5">
                                     <button class="btn btn-primary btn-sm">Show More</button>
                                 </div>
                             </div>
@@ -155,15 +141,14 @@
                             </div>
                             <hr>
                             <div class="container">
-                                <h5 class="mb-2">Nome Musicista</h5>
+                                <h5 class="mb-5">Nome Musicista</h5>
                                 <h5 class="">Strumento</h5>
                                 <hr>
-                                    <p class="mb-5">Anteprima descrizione </p>
-                                    <div class="row">
-                                        <div class="col text-end mt-5 mb-3">
-                                            <button class="btn btn-primary btn-sm">Show More</button>
-                                        </div>
-                                    </div>
+                                <p>
+                                    Anteprima descrizione
+                                </p>
+                                span
+                                
                             </div>
                         </div>
                     </div>
