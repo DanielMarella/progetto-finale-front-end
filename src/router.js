@@ -5,6 +5,10 @@ import AdvanceSearch from './pages/AdvanceSearch.vue';
 import DashboardMusician from './pages/DashboardMusician.vue';
 import SingleMusician from './pages/SingleMusician.vue';
 import Register from './pages/Register.vue';
+<<<<<<< HEAD
+=======
+import Login from './pages/Login.vue';
+>>>>>>> 05d3d2e1e1ddd1167ebe544668aafd4d4e36133e
 
 
 
@@ -38,6 +42,14 @@ const router= createRouter({
             name: 'Register',
             component: Register,
         },
+<<<<<<< HEAD
+=======
+        {
+            path: '/Login',
+            name: 'Login',
+            component: Login,
+        },
+>>>>>>> 05d3d2e1e1ddd1167ebe544668aafd4d4e36133e
 
 
 
