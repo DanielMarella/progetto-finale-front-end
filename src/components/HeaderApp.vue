@@ -1,14 +1,4 @@
 <template>
-    <!-- <nav>
-        <ul>
-            <li v-for="link in links">
-                <router-link :to="link.route">
-                    {{ link.name }}
-                </router-link>
-            </li>
-        </ul>
-    </nav> -->
-
 
     <!-- navbar -->
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -40,19 +30,18 @@
                         </router-link>
                     </li>
                 </ul>
+
+                <!-- Login / Register -->
                 <div class="d-flex justify-content-center  align-items-center">
                     <ul class="d-flex flex-column  flex-lg-row m-0 gap-3 p-0">
                         <li v-for="(link, index) in logLinks" class="list-unstyled">
                             <router-link :to="link.route" class="text-black text-decoration-none">
                                 <button class="btn btn-small btn-primary" v-if="index===0">{{ link.name}}</button>
                                 <button class="btn btn-small btn-danger" v-if="index===1">{{ link.name}}</button>
-
                             </router-link>
                         </li>
                     </ul>
-                    
                 </div>
-                
             </div>
         </div>
     </div>
@@ -82,6 +71,7 @@ export default {
 
     data() {
         return {
+            // all pages route
             links : [
                 {
                     route: './',
@@ -100,7 +90,8 @@ export default {
                     name: 'SingleMusician'
                 },
             ],
-
+            
+            // login / register route
             logLinks:[
                 {
                     route: './Register',
@@ -123,7 +114,6 @@ export default {
 
 
 <style lang="scss" scoped>
-
     @media (max-width: 991px) {
         .sidebar{
             background-color: rgba(255, 255, 255, .15);
