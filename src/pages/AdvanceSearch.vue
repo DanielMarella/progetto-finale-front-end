@@ -26,6 +26,21 @@
                 </div>
             </section>
             <section class="results-zone justify-content-center py-3">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4 card text-center my-4" v-for="musician in musicians">
+                            <h3>{{ musician.surname }}</h3>
+
+                            <div class="image">
+                                <img :src=" musician.image " :alt="musician.surname + ' image'">
+                            </div>
+
+                            <h4>{{ musician.address }}</h4>
+                            <h5>{{ musician.price }} &euro;</h5>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="text-center">
                     <p>risultati / component musicista</p>
                 </div>
@@ -37,14 +52,32 @@
 
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'AdvanceSearch',
 
     data(){
         return{
+            apiUrl: "http://127.0.0.1:8000/api/musicians",
+            musicians : [],
         }
-    }
+    },
 
+    methods: {
+        GetMusiciansApi(){
+            axios.get(this.apiUrl).then((response) => {
+            // console.log(response.data);
+
+            this.musicians = response.data.data;
+            console.log(this.musicians);
+        })
+        }
+    },
+
+    created() {
+        this.GetMusiciansApi()
+    },
 }
 </script>
 
@@ -58,7 +91,6 @@ section.search-zone{
 section.results-zone{
     background-color: red;
     width: calc(100vw - 200px);
-    height: 500px;
 }
 
 section.filters{
