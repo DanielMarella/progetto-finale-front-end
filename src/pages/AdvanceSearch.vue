@@ -2,19 +2,23 @@
     <div class="d-flex">
         <section class="filters">
             <h5>Filtra per ...</h5>
+            
             <div>
                 <h5>Genere musicale</h5>
                 <input type="checkbox" name="genre" id="genre"><span>Rock</span>
             </div>
+
             <div>
                 <h5>Strumento suonato</h5>
                 <input type="checkbox" name="instrument" id="instrument"><span>Basso</span>
             </div>
+
             <div>
                 <h5>Prezzo a serata</h5>
                 <input type="checkbox" name="instrument" id="instrument"><span>50</span>
             </div>
         </section>
+
         <div>
             <section class="search-zone">
                 <div class=" mx-auto d-flex flex-column align-items-center py-3">
@@ -25,23 +29,29 @@
                     </form>
                 </div>
             </section>
+
             <section class="results-zone justify-content-center py-3">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-4 card text-center my-4 my_card" v-for="(musician, index) in musicians">
-                            <!-- <SingleMusician v-if="selectedMusician" :musician="selectedMusician" /> -->
-                            <router-link :to="{name: SingleMusician, params:{id: index}}">
-                                <h3>{{ musician.surname }}</h3>
-    
-                                <div class="image">
-                                    <img :src=" musician.image " :alt="musician.surname + ' image'">
-                                </div>
-    
-                                <h4>{{ musician.address }}</h4>
-                                <h5>{{ musician.price }} &euro;</h5>
-
-                            </router-link>
+                    <div class="row" v-if="!isLoading">
+                        <div class="col-lg-4 col-md-6 col-sm-12" v-for="(musician, index) in musicians">
+                            <div class="card text-center my-4 my_card">
+                                <!-- <SingleMusician v-if="selectedMusician" :musician="selectedMusician" /> -->
+                                <router-link :to="{name: SingleMusician, params:{id: index}}">
+                                    <p class="fs-2">{{ musician.surname }}</p>
+        
+                                    <div class="image">
+                                        <img :src=" musician.image " :alt="musician.surname + ' image'">
+                                    </div>
+        
+                                    <p class="fs-5">{{ musician.address }}</p>
+                                    <p class="fs-4">{{ musician.price }} &euro;</p>
+                                </router-link>
+                            </div>
                         </div>
+                    </div>
+
+                    <div class="my_loading_container d-flex align-items-center justify-content-center" v-if="isLoading">
+                        <div class="my_loading_anim"><div></div><div></div><div></div><div></div></div>
                     </div>
                 </div>
 
@@ -66,6 +76,7 @@ export default {
         return{
             apiUrl: "http://127.0.0.1:8000/api/musicians",
             musicians : [],
+            isLoading: true,
         }
     },
 
@@ -89,7 +100,10 @@ export default {
     },
 
     created() {
-        this.getMusiciansApi()
+        this.getMusiciansApi(),
+        setTimeout(() => {
+            this.isLoading = false
+        }, 1000);
     },
 }
 </script>
@@ -104,6 +118,11 @@ section.search-zone{
 section.results-zone{
     background-color: red;
     width: calc(100vw - 200px);
+
+    div.my_card{
+        transition: all .3s ease-in-out;
+        z-index: 0;
+    }
 
     div.my_card:hover{
         cursor: pointer;
@@ -122,4 +141,46 @@ section.filters{
     background-color: orangered;
     width: 200px;
 }
+
+.my_loading_anim {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+
+    div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid #fff;
+    border-radius: 50%;
+    animation: loadingAnim 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
+}
+
+div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+
+div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+
+div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+
+@keyframes loadingAnim {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+}
+
 </style>
