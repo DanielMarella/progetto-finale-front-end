@@ -27,6 +27,7 @@ const router= createRouter({
             path: '/advance-search',
             name: 'AdvanceSearch',
             component: AdvanceSearch,
+            props: true,
         },
         {
             path: '/DashboardMusician',
@@ -34,7 +35,7 @@ const router= createRouter({
             component: DashboardMusician,
         },
         {
-            path: '/SingleMusician',
+            path: '/SingleMusician/:id',
             name: 'SingleMusician',
             component: SingleMusician,
         },

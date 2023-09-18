@@ -6,11 +6,13 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <h5 class="card-title">
-                            NOME COGNOME
+                            <!-- {{ musician.surname }} -->
+                            NOME
                         </h5>
                         
                         <p class="card-text">
-                            Indirizzo
+                            <!-- {{ musician.address }} -->
+                            ADDRESS
                         </p>
                         
                         <p class="card-text">
@@ -20,6 +22,7 @@
                     
                     <div class="imageWrapper">
                         <!--Qui inseriremo la foto del musicista-->
+                        <img src="" alt="image">
                     </div>
                 </div>
             </div>
@@ -115,8 +118,36 @@
 
 
 <script>
+import axios from 'axios';
+
 export default {
-    name: 'SingleMusician'
+    props: [
+        'musician'
+    ],
+
+    name: 'SingleMusician',
+
+    data(){
+        return{
+            apiUrl: "http://127.0.0.1:8000/api/musicians",
+            musicians : [],
+        }
+    },
+
+    methods: {
+        GetMusiciansApi(){
+            axios.get(`${this.apiUrl}/${this.$route.params.id}`).then((response) => {
+            console.log(response.data);
+
+            // this.musicians = response.data;
+            // console.log(this.musicians);
+        })
+        }
+    },
+
+    created() {
+        this.GetMusiciansApi()
+    },
 }
 </script>
 
@@ -124,9 +155,11 @@ export default {
 
 <style lang="scss">
     div.imageWrapper{
-        width: 90px;
-        height: 90px;
-        border-radius: 50%;
-        object-fit: cover;
+        img{
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
     }
 </style>
