@@ -6,7 +6,7 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <h5 class="card-title">
-                            <!-- {{ musician.surname }} -->
+                             {{ musicians.surname }}
                             NOME
                         </h5>
                         
@@ -138,6 +138,7 @@ export default {
         GetMusiciansApi(){
             axios.get(`${this.apiUrl}/${this.$route.params.id}`).then((response) => {
             console.log(response.data);
+            this.musicians=response.data
 
             // this.musicians = response.data;
             // console.log(this.musicians);
