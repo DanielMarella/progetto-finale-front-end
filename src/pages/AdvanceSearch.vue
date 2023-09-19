@@ -33,31 +33,18 @@
             <section class="results-zone justify-content-center py-3">
                 <div class="container">
                     <div class="row" v-if="!isLoading">
-                        <div class="col-lg-4 col-md-6 col-sm-12" v-for="(musician, index) in musicians">
-                            <div class="card text-center my-4 my_card">
-                                <!-- <SingleMusician v-if="selectedMusician" :musician="selectedMusician" /> -->
-                                <router-link :to="{name: SingleMusician, params:{id: index}}">
-                                    <p class="fs-2">{{ musician.surname }}</p>
-        
-                                    <div class="image">
-                                        <img :src=" musician.image " :alt="musician.surname + ' image'">
-                                    </div>
-        
-                                    <p class="fs-5">{{ musician.address }}</p>
-                                    <p class="fs-4">{{ musician.price }} &euro;</p>
-                                </router-link>
-                            </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12" v-for="musician in musicians">
+                            <MusicianCard :musicianInfo="musician"/>
                         </div>
                     </div>
 
+                    <!--Rotella caricamento-->
                     <div class="my_loading_container d-flex align-items-center justify-content-center" v-if="isLoading">
                         <div class="my_loading_anim"><div></div><div></div><div></div><div></div></div>
                     </div>
+
                 </div>
 
-                <div class="text-center">
-                    <p>risultati / component musicista</p>
-                </div>
             </section>
         </div>
     </div>
@@ -67,7 +54,7 @@
 
 <script>
 import axios from 'axios';
-import SingleMusician from './SingleMusician.vue';
+import MusicianCard from '../components/MusicianCard.vue'
 
 export default {
     name: 'AdvanceSearch',
@@ -81,22 +68,19 @@ export default {
     },
 
     components:{
-        SingleMusician
+        MusicianCard
     },
 
     methods: {
-        getMusiciansApi(){
-            axios.get(this.apiUrl).then((response) => {
-            // console.log(response.data);
+    getMusiciansApi(){
+        axios.get(this.apiUrl).then((response) => {
+        // console.log(response.data);
 
-            this.musicians = response.data.data;
-            console.log(this.musicians);
+        this.musicians = response.data.data;
+        console.log(this.musicians);
         })
-        },
-        showMusicianDetails(musician){
-            this.selectedMusician = musician;
-            this.isActive = !this.isActive;
-        }
+    },
+
     },
 
     created() {
@@ -118,23 +102,6 @@ section.search-zone{
 section.results-zone{
     background-color: red;
     width: calc(100vw - 200px);
-
-    div.my_card{
-        transition: all .3s ease-in-out;
-        z-index: 0;
-    }
-
-    div.my_card:hover{
-        cursor: pointer;
-        transform: scale(1.3);
-        z-index: 1;
-        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    }
-}
-
-a{
-    text-decoration: none;
-    color: black;
 }
 
 section.filters{
