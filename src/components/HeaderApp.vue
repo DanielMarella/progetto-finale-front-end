@@ -34,11 +34,9 @@
                 <!-- Login / Register -->
                 <div class="d-flex justify-content-center  align-items-center">
                     <ul class="d-flex flex-column  flex-lg-row m-0 gap-3 p-0">
-                        <li v-for="(link, index) in logLinks" class="list-unstyled">
-                            <router-link :to="link.route" class="text-black text-decoration-none">
-                                <button class="btn btn-small btn-primary" v-if="index===0">{{ link.name}}</button>
-                                <button class="btn btn-small btn-danger" v-if="index===1">{{ link.name}}</button>
-                            </router-link>
+                        <li class="list-unstyled">
+                            <button class="btn btn-small btn-primary" ><a href="http://127.0.0.1:8000/">Login</a></button>
+                            <button @click="redirectToLaravelLogin" class="btn btn-small btn-danger"><a href="http://127.0.0.1:8000/register">Register</a></button>
                         </li>
                     </ul>
                 </div>
@@ -91,19 +89,10 @@ export default {
                 },
             ],
             
-            // login / register route
-            logLinks:[
-                {
-                    route: './Register',
-                    name: 'Register'
-                },
-                {
-                    route: './Login',
-                    name: 'Login'
-                },
-            ]
+
         }
     },
+    
 
 }
 
