@@ -1,6 +1,6 @@
 <template>
     <router-link :to="{name:'SingleMusician', params:{ id: musicianInfo.user_id }}" @click="saveCurrentId(musicianInfo.user_id)">
-        <div class="card text-center my-4 my_card">
+        <div class="card text-center my-4 my_card ">
             <p class="fs-2">{{ musicianInfo.surname }}</p>
             
             <div class="image">
@@ -26,7 +26,8 @@ export default {
     },
 
     props:{
-        musicianInfo : Object
+        musicianInfo : Object,
+        userInfo : Object
     },
 
     methods:{

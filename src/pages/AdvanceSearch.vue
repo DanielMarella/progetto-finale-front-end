@@ -1,26 +1,45 @@
 <template>
-    <div class="d-flex">
-        <section class="filters">
+    <div class="d-flex filters">
+        <section class="my_bg px-4 py-4">
             <h5>Filtra per ...</h5>
             
             <div>
                 <h5>Genere musicale</h5>
-                <input type="checkbox" name="genre" id="genre"><span>Rock</span>
+                <select name="genre" id="genre" class="form-select" @change="getSelectValue($event)" >
+                    <option value="none" selected>Seleziona il genere</option>
+                    <option value="rock">Rock</option>
+                    <option value="metal">Metal</option>
+                    <option value="nu metal">Nu Metal</option>
+                    <option value="hard rock">Hard Rock</option>
+                    <option value="pop">Pop</option>
+                    <option value="pop rock">Pop rock</option>
+                </select>
             </div>
 
             <div>
-                <h5>Strumento suonato</h5>
-                <input type="checkbox" name="instrument" id="instrument"><span>Basso</span>
+                <h5>Strumento</h5>
+                <select name="instrument" id="instrument" class="form-select">
+                    <option value="none">Seleziona strumento</option>
+                    <option value="trumpet">Tromba</option>
+                    <option value="drums">Batteria</option>
+                    <option value="bass">Basso</option>
+                    <option value="guitar">Chitarra</option>
+                    <option value="sax">Sax</option>
+                    <option value="violin">Violino</option>
+                </select>
             </div>
 
             <div>
                 <h5>Prezzo a serata</h5>
-                <input type="checkbox" name="instrument" id="instrument"><span>50</span>
+                <div class="slidecontainer">
+                    <input type="range" min="10" max="1000" value="50" step="5" class="slider" id="myRange">
+                    <p id="price"> {{ sliderValue }} </p>
+                </div>
             </div>
         </section>
 
-        <div>
-            <section class="search-zone">
+        <div class="my_container">
+            <!-- <section class="search-zone">
                 <div class=" mx-auto d-flex flex-column align-items-center py-3">
                     <p>Inserisci il nome del musicista che cerchi. Se sei indeciso o non hai le idee chiare fatti aiutare con i filtri</p>
                     <form class="d-flex" role="search">
@@ -28,15 +47,22 @@
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>
-            </section>
+            </section> -->
 
             <section class="results-zone justify-content-center py-3">
                 <div class="container">
-                    <div class="row" v-if="!isLoading">
+                    <div class="row">
                         <div class="col-lg-4 col-md-6 col-sm-12" v-for="musician in musicians">
-                            <MusicianCard :musicianInfo="musician"/>
+                            <!-- Controlla se ci sono utenti con il genere musicale selezionato e li stampa su schermo -->
+                            <MusicianCard :musicianInfo="musician" v-if="musician.musical_genre === genreValue"/>
+
+                            <!-- Stampa su pagina tutti gli utenti se il genere selezionato è vuoto o nullo -->
+                            <MusicianCard :musicianInfo="musician" v-else-if="genreValue === '' || genreValue === 'none'"/>
+
+                            <p>Media voti: </p>
                         </div>
                     </div>
+
 
                     <!--Rotella caricamento-->
                     <div class="my_loading_container d-flex align-items-center justify-content-center" v-if="isLoading">
@@ -62,8 +88,24 @@ export default {
     data(){
         return{
             apiUrl: "http://127.0.0.1:8000/api/musicians",
+            apiUserUrl: "http://127.0.0.1:8000/api/user",
+            apiInstrumentUrl: "http://127.0.0.1:8000/api/instrument",
+            apiReviewUrl: "http://127.0.0.1:8000/api/review",
+
             musicians : [],
+            users : [],
+            instruments : [],
+            reviews : [],
+            reviewAvg: [],
+            idArray : [],
+            reviewArray : [],
+            musicianAverages : [],
+
             isLoading: true,
+
+
+            sliderValue: 0,
+            genreValue: '',
         }
     },
 
@@ -74,41 +116,81 @@ export default {
     methods: {
     getMusiciansApi(){
         axios.get(this.apiUrl).then((response) => {
-        // console.log(response.data);
 
         this.musicians = response.data.data;
         console.log(this.musicians);
         })
     },
+    getUserApi(){
+        axios.get(this.apiUserUrl).then((response) => {
+
+        this.users = response.data;
+        console.log(this.users);
+        })
+    },
+    getInstrumentApi(){
+        axios.get(this.apiInstrumentUrl).then((response) => {
+
+        this.instruments = response.data;
+        console.log(this.instruments);
+        })
+    },
+    getReviewApi(){
+        axios.get(this.apiReviewUrl).then((response) => {
+
+        this.reviews = response.data;
+        console.log(this.reviews);
+        })
+    },
+
+    
+
+    //Ottiene il value del dato passato nelle parentesi
+    getSelectValue(selectValue){
+        this.genreValue = selectValue.target.value;
+
+        console.log(this.genreValue);
+    }
 
     },
 
     created() {
+        //Chiamate api
         this.getMusiciansApi(),
+        this.getUserApi(),
+        this.getInstrumentApi(),
+        this.getReviewApi(),
+
+        //Rimuove l'animazione del caricamento dopo 1 secondo, da cambiare con un metodo migliore
         setTimeout(() => {
             this.isLoading = false
         }, 1000);
+    },
+    
+    mounted() {
+        
     },
 }
 </script>
 
 
 <style lang="scss" scoped>
-section.search-zone{
-    background-color: yellow;
-    width: calc(100vw - 200px);
-}
 
 section.results-zone{
-    background-color: red;
-    width: calc(100vw - 200px);
+    background-color: lightblue;
+    width: calc(100vw - 250px);
 }
 
-section.filters{
-    background-color: orangered;
+
+div.filters{
     width: 200px;
 }
 
+section.my_bg{
+    background-color: lightgrey;
+}
+
+//Animazione caricamento
 .my_loading_anim {
     display: inline-block;
     position: relative;
