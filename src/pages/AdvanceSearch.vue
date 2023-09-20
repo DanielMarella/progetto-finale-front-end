@@ -161,8 +161,6 @@ export default {
         this.getInstrumentApi(),
         this.getReviewApi(),
 
-        this.getReviewAverage(1);
-
         //Rimuove l'animazione del caricamento dopo 1 secondo, da cambiare con un metodo migliore
         setTimeout(() => {
             this.isLoading = false
