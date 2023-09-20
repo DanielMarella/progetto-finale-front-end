@@ -6,13 +6,11 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <h5 class="card-title">
-                             {{ musicians.surname }}
-                            NOME
+                            {{ musicians.surname }}
                         </h5>
                         
                         <p class="card-text">
-                            <!-- {{ musician.address }} -->
-                            ADDRESS
+                            {{ musicians.address }}
                         </p>
                         
                         <p class="card-text">
@@ -22,7 +20,7 @@
                     
                     <div class="imageWrapper">
                         <!--Qui inseriremo la foto del musicista-->
-                        <img src="" alt="image">
+                        <img :src="musicians.image" :alt="musicians.surname + ' image'">
                     </div>
                 </div>
             </div>
@@ -33,7 +31,7 @@
                 </li>
                 
                 <li class="list-group-item">
-                    Generi
+                    Generi: {{ musicians.musical_genre }}
                 </li>
             </ul>
 
@@ -58,7 +56,7 @@
     <div class="row">
         <div class="card col-10 mx-auto my-4">
             <h3>
-                Scrivi una recensione per questo musicista
+                Scrivi una recensione per {{ musicians.surname }}
             </h3>
 
             <form>
@@ -67,11 +65,11 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="exampleText" class="form-label">Dicci di più riguardo NOME COGNOME</label>
+                    <label for="exampleText" class="form-label">Dicci di più riguardo {{ musicians.surname }}</label>
                     <textarea name="exampleText" id="messageText" class="form-control" rows="4"></textarea>
                 </div>
                         
-                <button type="submit" class="btn btn-primary">Pubblica</button>
+                <button type="submit" class="btn btn-primary mb-3">Pubblica</button>
             </form>
         </div>
     </div>
@@ -83,7 +81,7 @@
             </h2>
 
             <p>
-                NUMERO
+                Cellulare: {{ musicians.num_phone }}
             </p>
 
             <p>
@@ -92,22 +90,22 @@
 
             <form>
                 <h3>
-                    Contatta il musicista direttamente
+                    Contatta {{ musicians.surname }} direttamente
                 </h3>
 
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <div id="emailHelp" class="form-text">NOME COGNOME potrà mandare una risposta a questa mail.</div>
+                    <div id="emailHelp" class="form-text">{{ musicians.surname }} potrà mandare una risposta a questa mail.</div>
                 </div>
 
 
                 <div class="mb-3">
-                    <label for="exampleText" class="form-label">Scrivi un messaggio a NOME COGNOME</label>
+                    <label for="exampleText" class="form-label">Scrivi un messaggio a {{ musicians.surname }}</label>
                     <textarea name="exampleText" id="messageText" class="form-control" rows="6"></textarea>
                 </div>
                         
-                <button type="submit" class="btn btn-primary">Manda</button>
+                <button type="submit" class="btn btn-primary mb-3">Manda</button>
             </form>
         </div>
     </div>
