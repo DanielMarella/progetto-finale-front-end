@@ -59,7 +59,6 @@
                             <!-- Stampa su pagina tutti gli utenti se il genere selezionato è vuoto o nullo -->
                             <MusicianCard :musicianInfo="musician" v-else-if="genreValue === '' || genreValue === 'none'"/>
 
-                            <p>Media voti: </p>
                         </div>
                     </div>
 
@@ -87,19 +86,12 @@ export default {
 
     data(){
         return{
-            apiUrl: "http://127.0.0.1:8000/api/musicians",
-            apiUserUrl: "http://127.0.0.1:8000/api/user",
-            apiInstrumentUrl: "http://127.0.0.1:8000/api/instrument",
-            apiReviewUrl: "http://127.0.0.1:8000/api/review",
+            apiUrl:"http://127.0.0.1:8000/api/musicians",
+            //apiUserUrl: "http://127.0.0.1:8000/api/user",
+            //apiInstrumentUrl: "http://127.0.0.1:8000/api/instrument",
+            //apiReviewUrl: "http://127.0.0.1:8000/api/review",
 
             musicians : [],
-            users : [],
-            instruments : [],
-            reviews : [],
-            reviewAvg: [],
-            idArray : [],
-            reviewArray : [],
-            musicianAverages : [],
 
             isLoading: true,
 
@@ -114,52 +106,31 @@ export default {
     },
 
     methods: {
-    getMusiciansApi(){
-        axios.get(this.apiUrl).then((response) => {
+        getMusiciansApi(){
+            axios.get(this.apiUrl)
+            .then((response)=> {
+                //console.log(response.data.results.data)
+                this.musicians=response.data.results.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        },
 
-        this.musicians = response.data.data;
-        console.log(this.musicians);
-        })
-    },
-    getUserApi(){
-        axios.get(this.apiUserUrl).then((response) => {
 
-        this.users = response.data;
-        console.log(this.users);
-        })
-    },
-    getInstrumentApi(){
-        axios.get(this.apiInstrumentUrl).then((response) => {
+        //Ottiene il value del dato passato nelle parentesi
+        getSelectValue(selectValue){
+            this.genreValue = selectValue.target.value;
 
-        this.instruments = response.data;
-        console.log(this.instruments);
-        })
-    },
-    getReviewApi(){
-        axios.get(this.apiReviewUrl).then((response) => {
-
-        this.reviews = response.data;
-        console.log(this.reviews);
-        })
-    },
-
-    
-
-    //Ottiene il value del dato passato nelle parentesi
-    getSelectValue(selectValue){
-        this.genreValue = selectValue.target.value;
-
-        console.log(this.genreValue);
-    }
+            console.log(this.genreValue);
+        }
 
     },
 
     created() {
         //Chiamate api
         this.getMusiciansApi(),
-        this.getUserApi(),
-        this.getInstrumentApi(),
-        this.getReviewApi(),
+        
 
         //Rimuove l'animazione del caricamento dopo 1 secondo, da cambiare con un metodo migliore
         setTimeout(() => {

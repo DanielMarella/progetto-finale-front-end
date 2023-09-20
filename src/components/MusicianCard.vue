@@ -9,6 +9,8 @@
             
             <p class="fs-5">{{ musicianInfo.address }}</p>
             <p class="fs-4">{{ musicianInfo.price }} &euro;</p>
+
+            <p>Media delle valutazioni ricevute: {{getAvarage()}}</p>
         </div>
     </router-link>
 
@@ -35,8 +37,23 @@ export default {
             localStorage.setItem('currentUserId',info)
             console.log(localStorage.getItem('currentUserId'))
 
+        },
+
+        getAvarage(){
+            let numberOfReview = this.musicianInfo.reviews.length;
+            //console.log(numberOfReview);
+            let totVotes = 0;
+            this.musicianInfo.reviews.forEach(element => {
+                totVotes = totVotes + element.vote;
+            });
+            const avarage = totVotes / numberOfReview;
+            return Math.floor(avarage);
         }
     },
+
+    created(){
+        console.log(this.musicianInfo);
+    }
 
 }
 </script>
