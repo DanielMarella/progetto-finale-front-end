@@ -5,7 +5,7 @@
     <div class="container">
 
         <!-- logo -->
-        <a class="navbar-brand" href="#">Nome Sito</a>
+        <a class="navbar-brand text-dark" href="#">Nome Sito</a>
 
         <!-- Toggle btn -->
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -108,5 +108,10 @@ export default {
             background-color: rgba(255, 255, 255, .15);
             backdrop-filter: blur(10px);
         }
+    }
+
+    a{
+        text-decoration: none;
+        color: white;
     }
 </style>

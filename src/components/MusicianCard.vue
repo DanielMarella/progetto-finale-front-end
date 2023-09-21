@@ -1,10 +1,11 @@
 <template>
     <router-link :to="{name:'SingleMusician', params:{ id: musicianInfo.user_id }}" @click="saveCurrentId(musicianInfo.user_id)">
         <div class="card text-center my-4 my_card ">
-            <p class="fs-2">{{ musicianInfo.surname }}</p>
+            <span class="fs-2">{{ musicianInfo.user.name }}</span>
+            <span class="fs-2">{{ musicianInfo.surname }}</span>
             
             <div class="image">
-                <img :src=" musicianInfo.image " :alt="musicianInfo.surname + ' image'">
+                <img :src=" musicianInfo.image " :alt="musicianInfo.user.name + ' ' + musicianInfo.surname + ' image'">
             </div>
             
             <p class="fs-5">{{ musicianInfo.address }}</p>
