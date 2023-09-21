@@ -7,12 +7,12 @@
                 <h5>Genere musicale</h5>
                 <select name="genre" id="genre" class="form-select" @change="getSelectValue($event)" >
                     <option value="none" selected>Seleziona il genere</option>
-                    <option value="rock">Rock</option>
-                    <option value="metal">Metal</option>
-                    <option value="nu metal">Nu Metal</option>
-                    <option value="hard rock">Hard Rock</option>
-                    <option value="pop">Pop</option>
-                    <option value="pop rock">Pop rock</option>
+                    <option value="Rock">Rock</option>
+                    <option value="Metal">Metal</option>
+                    <option value="Nu metal">Nu Metal</option>
+                    <option value="Hard rock">Hard Rock</option>
+                    <option value="Pop">Pop</option>
+                    <option value="Pop rock">Pop rock</option>
                 </select>
             </div>
 
@@ -58,8 +58,6 @@
 
                             <!-- Stampa su pagina tutti gli utenti se il genere selezionato è vuoto o nullo -->
                             <MusicianCard :musicianInfo="musician" v-else-if="genreValue === '' || genreValue === 'none'"/>
-
-                            <p>Media voti: </p>
                         </div>
                     </div>
 
