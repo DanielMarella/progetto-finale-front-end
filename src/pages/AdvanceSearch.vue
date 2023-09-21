@@ -42,9 +42,9 @@
             <section class="search-zone">
                 <div class=" mx-auto d-flex flex-column align-items-center py-3">
                     <p>Inserisci un genere che vuoi cercare</p>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    <form class="d-flex" role="search" @submit.prevent>
+                        <input class="form-control me-2" type="text" placeholder="Search" name="search-bar" id="search-bar" v-model="filteredText" @keyup="searchBar()">
+                        <button class="btn btn-outline-success" type="submit" >Search</button>
                     </form>
                 </div>
             </section>
@@ -52,13 +52,9 @@
             <section class="results-zone justify-content-center py-3">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-4 col-md-6 col-sm-12" v-for="musician in musicians">
+                        <div class="col-lg-4 col-md-6 col-sm-12" v-for="musician in filteredMusicians">
                             <!-- Controlla se ci sono utenti con il genere musicale selezionato e li stampa su schermo -->
-                            <MusicianCard :musicianInfo="musician" v-if="musician.musical_genre === genreValue"/>
-
-                            <!-- Stampa su pagina tutti gli utenti se il genere selezionato è vuoto o nullo -->
-                            <MusicianCard :musicianInfo="musician" v-else-if="genreValue === '' || genreValue === 'none'"/>
-
+                            <MusicianCard :musicianInfo="musician"/>
                         </div>
                     </div>
 
@@ -92,8 +88,13 @@ export default {
             //apiReviewUrl: "http://127.0.0.1:8000/api/review",
 
             musicians : [],
+            filteredMusicians : [],
+
+            filteredText : '',
 
             isLoading: true,
+
+            canShow: true,
 
 
             sliderValue: 0,
@@ -111,6 +112,7 @@ export default {
             .then((response)=> {
                 //console.log(response.data.results.data)
                 this.musicians=response.data.results.data;
+                this.filteredMusicians = this.musicians;
             })
             .catch(function (error) {
                 console.log(error);
@@ -123,6 +125,16 @@ export default {
             this.genreValue = selectValue.target.value;
 
             console.log(this.genreValue);
+        },
+
+        
+        searchBar(){
+            let searchedText = this.filteredText.toLowerCase();
+            console.log(searchedText);
+
+            this.filteredMusicians = this.musicians.filter(element =>{
+                return element.musical_genre.toLowerCase().includes(searchedText);
+            })
         }
 
     },
@@ -130,7 +142,6 @@ export default {
     created() {
         //Chiamate api
         this.getMusiciansApi(),
-        
 
         //Rimuove l'animazione del caricamento dopo 1 secondo, da cambiare con un metodo migliore
         setTimeout(() => {
