@@ -5,7 +5,7 @@
             <span class="fs-2">{{ musicianInfo.surname }}</span>
             
             <div class="image">
-                <img :src=" musicianInfo.image " :alt="musicianInfo.user.name + ' ' + musicianInfo.surname + ' image'">
+                <img :src="'http://127.0.0.1:8000/storage/' + musicianInfo.image " :alt="musicianInfo.user.name + ' ' + musicianInfo.surname + ' image'">
             </div>
             
             <p class="fs-5">{{ musicianInfo.address }}</p>
@@ -60,9 +60,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
- div.my_card{
+div.my_card{
     transition: all .3s ease-in-out;
     z-index: 0;
+
+    div.image{
+        img{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
 }
 
 div.my_card:hover{
