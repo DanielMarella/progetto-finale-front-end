@@ -20,7 +20,7 @@
                     
                     <div class="imageWrapper">
                         <!--Qui inseriremo la foto del musicista-->
-                        <img :src="musicians.image" :alt="musicians.surname + ' image'">
+                        <img :src="'http://127.0.0.1:8000/storage/' + musicians.image" :alt="musicians.surname + ' image'">
                     </div>
                 </div>
             </div>
