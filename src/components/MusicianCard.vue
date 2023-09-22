@@ -28,13 +28,13 @@ export default {
 
     data(){
         return{
-
+            averageNum: 0
         }
     },
 
     props:{
         musicianInfo : Object,
-        userInfo : Object
+        userInfo : Object,
     },
 
     methods:{
@@ -52,13 +52,16 @@ export default {
                 totVotes = totVotes + element.vote;
             });
             const avarage = totVotes / numberOfReview;
-            return Math.floor(avarage);
-        }
+
+            this.averageNum = Math.floor(avarage);
+            this.$emit('average-num', this.averageNum);
+            
+            return this.averageNum;
+        },
     },
 
     created(){
-        console.log(this.musicianInfo);
-    }
+    },
 
 }
 </script>

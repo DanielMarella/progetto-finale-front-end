@@ -1,47 +1,23 @@
 <template>
     <div class="d-flex filters">
         <section class="my_bg px-4 py-4">
-            <h5>Filtra per ...</h5>
-            
-            <div>
-                <h5>Genere musicale</h5>
-                <select name="genre" id="genre" class="form-select" @change="getSelectValue($event)" >
-                    <option value="none" selected>Seleziona il genere</option>
-                    <option value="Rock">Rock</option>
-                    <option value="Metal">Metal</option>
-                    <option value="Nu metal">Nu Metal</option>
-                    <option value="Hard rock">Hard Rock</option>
-                    <option value="Pop">Pop</option>
-                    <option value="Pop rock">Pop rock</option>
-                </select>
+            <h5>Filtra per:</h5>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="isAverage">
+                <label class="form-check-label" for="flexCheckDefault">Media di recensioni</label>
             </div>
 
-            <div>
-                <h5>Strumento</h5>
-                <select name="instrument" id="instrument" class="form-select">
-                    <option value="none">Seleziona strumento</option>
-                    <option value="trumpet">Tromba</option>
-                    <option value="drums">Batteria</option>
-                    <option value="bass">Basso</option>
-                    <option value="guitar">Chitarra</option>
-                    <option value="sax">Sax</option>
-                    <option value="violin">Violino</option>
-                </select>
-            </div>
-
-            <div>
-                <h5>Prezzo a serata</h5>
-                <div class="slidecontainer">
-                    <input type="range" min="10" max="1000" value="50" step="5" class="slider" id="myRange">
-                    <p id="price"> {{ sliderValue }} </p>
-                </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="isTotal">
+                <label class="form-check-label" for="flexCheckDefault">Recensioni totali</label>
             </div>
         </section>
 
         <div class="my_container">
             <section class="search-zone">
                 <div class=" mx-auto d-flex flex-column align-items-center py-3">
-                    <p>Inserisci un genere che vuoi cercare</p>
+                    <p>Inserisci uno strumento che vuoi cercare</p>
                     <form class="d-flex" role="search" @submit.prevent>
                         <input class="form-control me-2" type="text" placeholder="Search" name="search-bar" id="search-bar" v-model="filteredText" @keyup="searchBar()">
                         <button class="btn btn-outline-success" type="submit" >Search</button>
@@ -52,9 +28,20 @@
             <section class="results-zone justify-content-center py-3">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-4 col-md-6 col-sm-12" v-for="musician in filteredMusicians">
-                            <!-- Controlla se ci sono utenti con il genere musicale selezionato e li stampa su schermo -->
-                            <MusicianCard :musicianInfo="musician"/>
+                        <div v-if="isAverage" class="col-lg-4 col-md-6 col-sm-12" v-for="musician in orderedMusicians">
+                            
+                            <MusicianCard :musicianInfo="musician" @average-num="onAverageNumChanged"/>
+                        </div>
+
+                        <div v-else-if="isTotal" class="col-lg-4 col-md-6 col-sm-12" v-for="musician in orderedSumMusicians">
+                            
+                            <MusicianCard :musicianInfo="musician" @average-num="onAverageNumChanged"/>
+                            <p>{{ musician.totalVotes }}</p>
+                        </div>
+
+                        <div v-else class="col-lg-4 col-md-6 col-sm-12" v-for="musician in filteredMusicians">
+                            
+                            <MusicianCard :musicianInfo="musician" @average-num="onAverageNumChanged"/>
                         </div>
                     </div>
 
@@ -89,6 +76,8 @@ export default {
 
             musicians : [],
             filteredMusicians : [],
+            orderedMusicians : [],
+            orderedSumMusicians : [],
 
             filteredText : '',
 
@@ -96,9 +85,13 @@ export default {
 
             canShow: true,
 
+            isAverage: false,
+            isTotal: false,
 
             sliderValue: 0,
             genreValue: '',
+
+            averageNumFromChild: 0,
         }
     },
 
@@ -110,21 +103,47 @@ export default {
         getMusiciansApi(){
             axios.get(this.apiUrl)
             .then((response)=> {
-                //console.log(response.data.results.data)
                 this.musicians=response.data.results.data;
                 this.filteredMusicians = this.musicians;
+
+                this.orderedMusicians = this.musicians.map((musician) => {
+                const totalVotes = musician.reviews.reduce((sum, review) => sum + review.vote, 0);
+                musician.averageNum = totalVotes / musician.reviews.length;
+                return musician;
+    });
+            
+            this.orderedMusicians.sort((a, b) => b.averageNum - a.averageNum);
+                
             })
             .catch(function (error) {
                 console.log(error);
             })
         },
 
+        getMusiciansSumApi() {
+            axios.get(this.apiUrl)
+                .then((response) => {
+                this.musicians = response.data.results.data;
+                this.filteredMusicians = this.musicians;
+
+                this.orderedSumMusicians = this.musicians.map((musician) => {
+                    const totalVotes = musician.reviews.reduce((sum, review) => sum + review.vote, 0);
+                    musician.totalVotes = totalVotes;
+                    return musician;
+        });
+
+                this.orderedSumMusicians.sort((a, b) => b.totalVotes - a.totalVotes);
+                })
+                .catch(function (error) {
+                console.log(error);
+                });
+},
+
 
         //Ottiene il value del dato passato nelle parentesi
         getSelectValue(selectValue){
             this.genreValue = selectValue.target.value;
 
-            console.log(this.genreValue);
         },
 
         
@@ -137,13 +156,17 @@ export default {
                     return instrument.name.toLowerCase().includes(searchedText);
                 })
             })
-        }
+        },
 
+        onAverageNumChanged(averageNum){
+            this.averageNumFromChild = averageNum;
+        }
     },
 
     created() {
-        //Chiamate api
+        //Chiamata api
         this.getMusiciansApi(),
+        this.getMusiciansSumApi(),
 
         //Rimuove l'animazione del caricamento dopo 1 secondo, da cambiare con un metodo migliore
         setTimeout(() => {
@@ -152,7 +175,6 @@ export default {
     },
     
     mounted() {
-        
     },
 }
 </script>
@@ -165,10 +187,6 @@ section.results-zone{
     width: calc(100vw - 250px);
 }
 
-
-div.filters{
-    width: 200px;
-}
 
 section.my_bg{
     background-color: lightgrey;
