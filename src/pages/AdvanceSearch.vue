@@ -131,9 +131,11 @@ export default {
         searchBar(){
             let searchedText = this.filteredText.toLowerCase();
             console.log(searchedText);
-
+            
             this.filteredMusicians = this.musicians.filter(element =>{
-                return element.musical_genre.toLowerCase().includes(searchedText);
+                return element.musical_instruments.some(instrument=>{
+                    return instrument.name.toLowerCase().includes(searchedText);
+                })
             })
         }
 

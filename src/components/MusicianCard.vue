@@ -10,6 +10,10 @@
             
             <p class="fs-5">{{ musicianInfo.address }}</p>
             <p class="fs-4">{{ musicianInfo.price }} &euro;</p>
+            <p class="fs-4">Genere: {{ musicianInfo.musical_genre }} </p>
+            <p class="fs-4">
+                Strumenti: {{ musicianInfo.musical_instruments.map(instrument => instrument.name).join(', ') }}
+            </p>
 
             <p>Media delle valutazioni ricevute: {{getAvarage()}}</p>
         </div>
