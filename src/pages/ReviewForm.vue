@@ -46,7 +46,9 @@ export default {
 
         GetMusiciansApi() {
             axios.get(`${this.apiUrl}/${this.$route.params.id}`).then((response) => {
-                this.musicianId = response.data.id;
+                this.musicianId= response.data.results.id;
+
+
             });
         },
 
