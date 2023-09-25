@@ -29,7 +29,6 @@
                 <div class="container">
                     <div class="row">
                         <div v-if="isAverage" class="col-lg-4 col-md-6 col-sm-12" v-for="musician in orderedMusicians">
-                            
                             <MusicianCard :musicianInfo="musician" @average-num="onAverageNumChanged"/>
                         </div>
 
