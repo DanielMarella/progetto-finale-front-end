@@ -20,7 +20,7 @@
                     
                     <div class="imageWrapper">
                         <!--Qui inseriremo la foto del musicista-->
-                        <img :src="'http://127.0.0.1:8000/storage/' + musicians.image" :alt="musicians.surname + ' image'">
+                        <img :src="musicians.image" :alt="musicians.surname + ' image'">
                     </div>
                 </div>
             </div>
@@ -53,26 +53,8 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="card col-10 mx-auto my-4">
-            <h3>
-                Scrivi una recensione per {{ musicians.surname }}
-            </h3>
+    <ReviewForm />
 
-            <form>
-                <div class="mb-3">
-                    <i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
-                </div>
-
-                <div class="mb-3">
-                    <label for="exampleText" class="form-label">Dicci di più riguardo {{ musicians.surname }}</label>
-                    <textarea name="exampleText" id="messageText" class="form-control" rows="4"></textarea>
-                </div>
-                        
-                <button type="submit" class="btn btn-primary mb-3">Pubblica</button>
-            </form>
-        </div>
-    </div>
 
     <div class="row">
         <div class="card col-10 mx-auto my-4">
@@ -117,35 +99,39 @@
 
 <script>
 import axios from 'axios';
+import ReviewForm from './ReviewForm.vue';
 
 export default {
+    components:{
+        ReviewForm,
+    },
     props: [
         'musician'
     ],
-
     name: 'SingleMusician',
-
-    data(){
-        return{
+    data() {
+        return {
             apiUrl: "http://127.0.0.1:8000/api/musicians",
-            musicians : [],
-        }
+            apiReview: 'http://127.0.0.1:8000/api/review-form',
+            content: '',
+            vote: '',
+            musicianId: '',
+            musicians: [],
+        };
     },
-
     methods: {
-        GetMusiciansApi(){
+        GetMusiciansApi() {
             axios.get(`${this.apiUrl}/${this.$route.params.id}`).then((response) => {
-            console.log(response.data);
-            this.musicians=response.data
-
-            // this.musicians = response.data;
-            // console.log(this.musicians);
-        })
-        }
+                this.musicians = response.data;
+               
+                // this.musicians = response.data;
+                // console.log(this.musicians);
+            });
+        },
+       
     },
-
     created() {
-        this.GetMusiciansApi()
+        this.GetMusiciansApi();
     },
 }
 </script>
