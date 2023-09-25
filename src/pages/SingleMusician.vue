@@ -13,12 +13,7 @@
                             {{ musicians.address }}
                         </p>
                         
-                        <!-- <div class="list-group-item star d-flex">
-                            <p v-for="star in 5">
-                                <p v-if="averageNum <= star" style="color: #000;">&#9733;</p>
-                                <p v-else style="color: #000;">&#9734;</p>
-                            </p>
-                        </div> -->
+
                     </div>
                     
                     <div class="imageWrapper">
@@ -142,6 +137,7 @@ export default {
             vote: '',
             musicianId: '',
             musicians: [],
+            user: [],
         };
     },
     methods: {
@@ -151,7 +147,7 @@ export default {
                 this.musicalInstrument = response.data.results.musical_instruments;
                 this.user = response.data.results.user;
                 // this.musicians = response.data;
-                console.log(this.musicians);
+                console.log(this.user);
             });
         },
 
