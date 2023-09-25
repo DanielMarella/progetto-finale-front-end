@@ -6,32 +6,57 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <h5 class="card-title">
-                            {{ musicians.surname }}
+                            {{ user.name }} {{ musicians.surname }}
                         </h5>
                         
                         <p class="card-text">
                             {{ musicians.address }}
                         </p>
                         
-                        <p class="card-text">
-                            <i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i>
-                        </p>
+                        <!-- <div class="list-group-item star d-flex">
+                            <p v-for="star in 5">
+                                <p v-if="averageNum <= star" style="color: #000;">&#9733;</p>
+                                <p v-else style="color: #000;">&#9734;</p>
+                            </p>
+                        </div> -->
                     </div>
                     
                     <div class="imageWrapper">
                         <!--Qui inseriremo la foto del musicista-->
-                        <img :src="musicians.image" :alt="musicians.surname + ' image'">
+                        <img v-if="musicians.image.startsWith('http')" :src="musicians.image" :alt="user.name + musicians.surname + ' image'">
+                        <img v-else :src=" 'http://127.0.0.1:8000/storage/' + musicians.image" :alt="user.name + musicians.surname + ' image'">
                     </div>
                 </div>
             </div>
 
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    Strumenti
+                <li class="list-group-item d-flex gap-3">
+                    <span>
+                        Strumenti:
+                    </span>
+
+                    <div v-for="instrument in musicalInstrument">
+                        <p>
+                            {{ instrument.name }}
+                        </p>
+                    </div>
                 </li>
                 
                 <li class="list-group-item">
                     Generi: {{ musicians.musical_genre }}
+                </li>
+
+                <li class="list-group-item">
+                    Prezzo: &euro;{{ musicians.price }}
+                </li>
+
+                <li class="list-group-item">
+                    Curriculum Vitale:
+                    <div class="cvWrapper">
+                        <img v-if="musicians.cv.startsWith('http')" :src="musicians.cv" :alt="user.name + musicians.surname + ' cv'">
+                    <img v-else :src=" 'http://127.0.0.1:8000/storage/' + musicians.cv" :alt="user.name + musicians.surname + ' cv'">
+                    </div>
+                    
                 </li>
             </ul>
 
@@ -106,7 +131,7 @@ export default {
         ReviewForm,
     },
     props: [
-        'musician'
+        'musician',
     ],
     name: 'SingleMusician',
     data() {
@@ -122,16 +147,19 @@ export default {
     methods: {
         GetMusiciansApi() {
             axios.get(`${this.apiUrl}/${this.$route.params.id}`).then((response) => {
-                this.musicians = response.data;
-               
+                this.musicians = response.data.results;
+                this.musicalInstrument = response.data.results.musical_instruments;
+                this.user = response.data.results.user;
                 // this.musicians = response.data;
-                // console.log(this.musicians);
+                console.log(this.musicians);
             });
         },
+
        
     },
     created() {
         this.GetMusiciansApi();
+
     },
 }
 </script>
@@ -145,6 +173,12 @@ export default {
             height: 90px;
             border-radius: 50%;
             object-fit: cover;
+        }
+    }
+
+    div.cvWrapper{
+        img{
+            width: 100%;
         }
     }
 </style>

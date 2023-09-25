@@ -83,10 +83,6 @@ export default {
                     route: './DashboardMusician',
                     name: 'DashboardMusician'
                 },
-                {
-                    route: './SingleMusician',
-                    name: 'SingleMusician'
-                },
             ],
             
 
