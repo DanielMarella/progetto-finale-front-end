@@ -12,6 +12,8 @@
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="isTotal">
                 <label class="form-check-label" for="flexCheckDefault">Recensioni totali</label>
             </div>
+
+            
         </section>
 
         <div class="my_container">
@@ -28,7 +30,11 @@
             <section class="results-zone justify-content-center py-3">
                 <div class="container">
                     <div class="row">
-                        <div v-if="isAverage" class="col-lg-4 col-md-6 col-sm-12" v-for="musician in orderedMusicians">
+                        <div v-if="isAverage && isTotal" class="col-lg-4 col-md-6 col-sm-12" v-for="musician in mergedMusicians">
+                            <MusicianCard :musicianInfo="musician" @average-num="onAverageNumChanged"/>
+                        </div>
+
+                        <div v-else-if="isAverage" class="col-lg-4 col-md-6 col-sm-12" v-for="musician in orderedMusicians">
                             
                             <MusicianCard :musicianInfo="musician" @average-num="onAverageNumChanged"/>
                         </div>
@@ -36,10 +42,9 @@
                         <div v-else-if="isTotal" class="col-lg-4 col-md-6 col-sm-12" v-for="musician in orderedSumMusicians">
                             
                             <MusicianCard :musicianInfo="musician" @average-num="onAverageNumChanged"/>
-                            <p>{{ musician.totalVotes }}</p>
                         </div>
 
-                        <div v-else class="col-lg-4 col-md-6 col-sm-12" v-for="musician in filteredMusicians">
+                        <div v-else-if="!isTotal && !isAverage" class="col-lg-4 col-md-6 col-sm-12" v-for="musician in filteredMusicians">
                             
                             <MusicianCard :musicianInfo="musician" @average-num="onAverageNumChanged"/>
                         </div>
@@ -78,6 +83,7 @@ export default {
             filteredMusicians : [],
             orderedMusicians : [],
             orderedSumMusicians : [],
+            mergedMusicians : [],
 
             filteredText : '',
 
@@ -113,7 +119,21 @@ export default {
     });
             
             this.orderedMusicians.sort((a, b) => b.averageNum - a.averageNum);
+            
+
+            this.mergedMusicians = this.orderedSumMusicians.concat(this.orderedMusicians);
+
+            this.mergedMusicians.sort((a, b) => {
+
+                if (b.averageNum !== a.averageNum) {
+                    return b.averageNum - a.averageNum;
+                }
+
+                this.originalOrderedMusicians = [...this.orderedMusicians];
                 
+
+                return b.totalVotes - a.totalVotes;
+            });
             })
             .catch(function (error) {
                 console.log(error);
@@ -133,6 +153,8 @@ export default {
         });
 
                 this.orderedSumMusicians.sort((a, b) => b.totalVotes - a.totalVotes);
+
+                this.originalOrderedSumMusicians = [...this.orderedSumMusicians];
                 })
                 .catch(function (error) {
                 console.log(error);
@@ -146,21 +168,32 @@ export default {
 
         },
 
-        
-        searchBar(){
-            let searchedText = this.filteredText.toLowerCase();
-            console.log(searchedText);
-            
-            this.filteredMusicians = this.musicians.filter(element =>{
-                return element.musical_instruments.some(instrument=>{
-                    return instrument.name.toLowerCase().includes(searchedText);
-                })
-            })
-        },
+
+
+        searchBar() {
+        let searchedText = this.filteredText.toLowerCase();
+
+        this.filteredMusicians = this.filterMusiciansByKeyword(this.musicians, searchedText);
+        this.orderedMusicians = this.filterMusiciansByKeyword(this.originalOrderedMusicians, searchedText);
+        this.orderedSumMusicians = this.filterMusiciansByKeyword(this.originalOrderedSumMusicians, searchedText);
+
+        this.mergedMusicians = this.musicians.filter((musician) => {
+            return this.filterMusiciansByKeyword([musician], searchedText).length > 0;
+        });
+    },
+
+    filterMusiciansByKeyword(musiciansArray, keyword) {
+        return musiciansArray.filter((musician) => {
+            return musician.musical_instruments.some((instrument) => {
+                return instrument.name.toLowerCase().includes(keyword);
+            });
+        });
+    },
+
 
         onAverageNumChanged(averageNum){
             this.averageNumFromChild = averageNum;
-        }
+        },
     },
 
     created() {
