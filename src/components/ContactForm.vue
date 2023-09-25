@@ -1,6 +1,7 @@
 
 
-<template lang="">
+<template>
+
     <form @submit.prevent="sendContactForm" @reset.prevent="clearForm">
 
         <div class="form-element info" v-if="response === false">
@@ -11,13 +12,17 @@
         </div>
 
         <div class="form-element">
-            <p>Type your content</p>
-            <input type="text" v-model="content">
+            <p>Type your name</p>
+            <input type="text" v-model="name">
+        </div>
+        <div class="form-element">
+            <p>Type your email</p>
+            <input type="email" v-model="mail">
         </div>
 
         <div class="form-element">
-            <p>Type your vote</p>
-            <input type="number" v-model="vote">
+            <p>Type your message</p>
+            <input type="text" v-model="message">
         </div>
 
         <div class="task-bar">
@@ -27,90 +32,86 @@
     </form>
 </template>
 
+
+
+
+
+
+
+
+
 <script>
 import axios from 'axios';
 
 export default {
-    name: 'ReviewForm',
+    name : 'ContactForm',
+
     data() {
         return {
             apiUrl: "http://127.0.0.1:8000/api/musicians",
-            apiReview: 'http://127.0.0.1:8000/api/review-form',
-            content: '',
-            vote: '',
+            apiContact: 'http://127.0.0.1:8000/api/contact-form',
+            name: '',
+            mail: '',
+            message: '',
             musicianId: '',
-
-        };
+            response: true,
+        }  
     },
+    
     methods: {
 
         GetMusiciansApi() {
             axios.get(`${this.apiUrl}/${this.$route.params.id}`).then((response) => {
                 this.musicianId= response.data.results.id;
-
-
+                console.log(this.musicianId)
             });
         },
 
-
-        sendContactForm() {
+        sendContactForm(){
             const data = {
-                content: this.content,
-                vote: this.vote,
-                musician_id: this.musicianId,
+                name : this.name,
+                mail : this.mail,
+                message : this.message,
+                musician_id : this.musicianId 
             };
             axios
-                .post(this.apiReview, data)
-                .then((response) => {
-                console.log(response);
-
-                if (this.response) {
-                    this.clearForm();
-                }
-                else {
+            .post(this.apiContact, data)
+            .then((response) =>{
+                const responseData = response.data
+                console.log(responseData)
+                console.log(data)
+                if (response.data.success) {
+                this.clearForm();
+                } else {
                     this.errors = response.data.errors;
-                    console.log(this.errors);
                 }
             })
-                .catch((error) => {
+            .catch((error) => {
                 console.error('Errore Axios:', error);
                 this.response = false;
                 this.errors = error.response.data ? error.response.data.message : 'Errore sconosciuto';
-                console.log(this.response);
+                // console.log(this.response);
             });
         },
+
         clearForm() {
-            this.vote = '';
-            this.content = '';
+            this.name = '';
+            this.mail = '';
+            this.message = '';
+
         }
+
     },
+
     created() {
         this.GetMusiciansApi();
     },
+
 }
 </script>
 
+
+
 <style lang="scss">
-    form {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        width: 100%;
-        margin: 0 auto;
-
-        div.form-element{
-            width: 70%;
-            margin-bottom: 1rem;
-
-            *{
-                width: 100%;
-            }
-        }
-
-        button {
-            padding: 1rem 2rem;
-            margin-right: 1rem;
-        }
-    }
+    
 </style>

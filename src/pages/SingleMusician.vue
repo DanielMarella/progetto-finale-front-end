@@ -67,11 +67,6 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="card col-8 mx-auto my-4">
-            <!--Qui inseriremo il curriculum del musicista visualizzato-->
-        </div>
-    </div>
 
     <ReviewForm />
 
@@ -87,28 +82,11 @@
             </p>
 
             <p>
-                EMAIL
+                EMAIL : {{ user.email }}
             </p>
 
-            <form>
-                <h3>
-                    Contatta {{ musicians.surname }} direttamente
-                </h3>
-
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <div id="emailHelp" class="form-text">{{ musicians.surname }} potrà mandare una risposta a questa mail.</div>
-                </div>
-
-
-                <div class="mb-3">
-                    <label for="exampleText" class="form-label">Scrivi un messaggio a {{ musicians.surname }}</label>
-                    <textarea name="exampleText" id="messageText" class="form-control" rows="6"></textarea>
-                </div>
-                        
-                <button type="submit" class="btn btn-primary mb-3">Manda</button>
-            </form>
+        <ContactForm />
+    
         </div>
     </div>
 </div>
@@ -119,12 +97,15 @@
 
 <script>
 import axios from 'axios';
-import ReviewForm from './ReviewForm.vue';
+import ReviewForm from '../components/ReviewForm.vue';
+import ContactForm from '../components/ContactForm.vue'
+
 
 export default {
     components:{
-        ReviewForm,
-    },
+    ReviewForm,
+    ContactForm
+},
     props: [
         'musician',
     ],
@@ -133,9 +114,6 @@ export default {
         return {
             apiUrl: "http://127.0.0.1:8000/api/musicians",
             apiReview: 'http://127.0.0.1:8000/api/review-form',
-            content: '',
-            vote: '',
-            musicianId: '',
             musicians: [],
             user: [],
         };
