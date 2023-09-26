@@ -79,10 +79,6 @@ export default {
                     route: './advance-search',
                     name: 'AdvanceSearch'
                 },
-                {
-                    route: './DashboardMusician',
-                    name: 'DashboardMusician'
-                },
             ],
             
 
