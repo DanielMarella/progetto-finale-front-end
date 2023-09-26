@@ -5,7 +5,8 @@
             <span class="fs-2">{{ musicianInfo.surname }}</span>
             
             <div class="image">
-                <img :src="'http://127.0.0.1:8000/storage/' + musicianInfo.image " :alt="musicianInfo.user.name + ' ' + musicianInfo.surname + ' image'">
+                <img v-if="musicianInfo.image.startsWith('http')" :src="musicianInfo.image" :alt="musicianInfo.user.name + ' ' + musicianInfo.surname + ' image'">
+                <img v-else :src="'http://127.0.0.1:8000/storage/' + musicianInfo.image " :alt="musicianInfo.user.name + ' ' + musicianInfo.surname + ' image'">
             </div>
             
             <p class="fs-5">{{ musicianInfo.address }}</p>
