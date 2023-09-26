@@ -5,7 +5,9 @@
             <span class="fs-2">{{ musicianInfo.surname }}</span>
             
             <div class="image">
-                <img :src="'http://127.0.0.1:8000/storage/' + musicianInfo.image " :alt="musicianInfo.user.name + ' ' + musicianInfo.surname + ' image'">
+
+                <img v-if="musicianInfo.image.startsWith('http')" :src="musicianInfo.image" :alt="musicianInfo.user.name + musicianInfo.surname + ' image'">
+                <img v-else :src=" 'http://127.0.0.1:8000/storage/' + musicianInfo.image" :alt="musicianInfo.user.name + musicianInfo.surname + ' image'">
             </div>
             
             <p class="fs-5">{{ musicianInfo.address }}</p>
@@ -16,6 +18,8 @@
             </p>
 
             <p>Media delle valutazioni ricevute: {{getAvarage()}}</p>
+            <p>Recensioni totali ricevute: {{musicianInfo.reviews.length}}</p>
+
         </div>
     </router-link>
 
@@ -28,8 +32,10 @@ export default {
 
     data(){
         return{
-            averageNum: 0
+            averageNum: 0,
         }
+
+
     },
 
     props:{
@@ -46,7 +52,7 @@ export default {
 
         getAvarage(){
             let numberOfReview = this.musicianInfo.reviews.length;
-            //console.log(numberOfReview);
+            console.log(this.musicianInfo.reviews);
             let totVotes = 0;
             this.musicianInfo.reviews.forEach(element => {
                 totVotes = totVotes + element.vote;
