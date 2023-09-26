@@ -28,7 +28,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex gap-3">
                             <span>
-                                Strumenti:
+                                <strong>Strumenti</strong>:
                             </span>
 
                             <p v-for="instrument in musicalInstrument" class="m-0">
@@ -37,16 +37,16 @@
                         </li>
                         
                         <li class="list-group-item">
-                            Generi: {{ musicians.musical_genre }}
+                            <strong>Generi</strong>: {{ musicians.musical_genre }}
                         </li>
 
                         <li class="list-group-item">
-                            Prezzo: &euro;{{ musicians.price }}
+                            <strong>Prezzo</strong>: &euro;{{ musicians.price }}
                         </li>
 
                         <li class="list-group-item">
-                            <span>Curriculm Vitae</span>
-                            <div class="cvWrapper">
+                            <span> <strong>Curriculm Vitae</strong> </span>
+                            <div class="cvWrapper py-2">
                                 <img v-if="musicians.cv.startsWith('http')" :src="musicians.cv" :alt="user.name + musicians.surname + ' cv'">
                                 <img v-else :src=" 'http://127.0.0.1:8000/storage/' + musicians.cv" :alt="user.name + musicians.surname + ' cv'">
                             </div>   
@@ -95,18 +95,21 @@
 <script>
 import axios from 'axios';
 import ReviewForm from '../components/ReviewForm.vue';
-import ContactForm from '../components/ContactForm.vue'
+import ContactForm from '../components/ContactForm.vue';
 
 
 export default {
+    name: 'SingleMusician',
+
     components:{
-    ReviewForm,
-    ContactForm
-},
+        ReviewForm,
+        ContactForm
+    },
+
     props: [
         'musician',
     ],
-    name: 'SingleMusician',
+
     data() {
         return {
             apiUrl: "http://127.0.0.1:8000/api/musicians",
@@ -170,6 +173,7 @@ export default {
     div.cvWrapper{
         img{
             width: 100%;
+            height: 300px;
         }
     }
 

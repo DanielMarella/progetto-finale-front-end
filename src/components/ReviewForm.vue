@@ -2,7 +2,7 @@
 
 <template>
     <form @submit.prevent="sendReviewForm" @reset.prevent="clearForm" class="d-flex my-3 col-10 pb-3">
-        <h1> Inserisci la tua recensione </h1>
+        <h3> Inserisci la tua recensione </h3>
 
         <div class="form-element info" v-if="response === false">
             <h3>
