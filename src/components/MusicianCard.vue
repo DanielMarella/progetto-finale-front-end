@@ -18,8 +18,11 @@
             <p>Media delle valutazioni ricevute:</p>
             <div>
                 <span v-for="n in getAvarage()">
-                <i class="fa-solid fa-music pe-2"></i> 
-            </span>
+                    <i class="fa-solid fa-music pe-2 text-primary"></i>
+                </span>
+                <span v-for="n in ( 5 - getAvarage())">
+                    <i class="fa-solid fa-music pe-2 text-secondary"></i>
+                </span>
             </div>
         </div>
     </router-link>
