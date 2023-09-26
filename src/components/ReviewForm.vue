@@ -1,7 +1,7 @@
 
 
-<template lang="">
-    <form @submit.prevent="sendReviewForm" @reset.prevent="clearForm">
+<template>
+    <form @submit.prevent="sendReviewForm" @reset.prevent="clearForm" class="d-flex my-3 col-10 pb-3">
         <h1> Inserisci la tua recensione </h1>
 
         <div class="form-element info" v-if="response === false">
@@ -12,18 +12,19 @@
         </div>
 
         <div class="form-element">
-            <p>Type your content</p>
-            <input type="text" v-model="content">
+            <label class="form-label">Recensiona qui il musicista</label>
+            <input type="text"  class="form-control" v-model="content">
         </div>
 
         <div class="form-element">
-            <p>Type your vote</p>
-            <input type="number" v-model="vote">
+            <label class="form-label">Lascia un voto</label>
+            <input type="number"  class="form-control" v-model="vote">
+            <p class="form-text">5 è il massimo voto che puoi inserire ... Non esagerare</p>
         </div>
 
         <div class="task-bar">
-            <button type="submit">Send contact form</button>
-            <button type="reset">Reset contact form</button>
+            <button type="submit" class="btn btn-outline-success">Invia recensione</button>
+            <button type="reset" class="btn btn-outline-secondary">Resetta form</button>
         </div>
     </form>
 </template>
@@ -48,12 +49,8 @@ export default {
         GetMusiciansApi() {
             axios.get(`${this.apiUrl}/${this.$route.params.id}`).then((response) => {
                 this.musicianId= response.data.results.id;
-                
-
-
             });
         },
-
 
         sendReviewForm() {
             const data = {
@@ -61,12 +58,11 @@ export default {
                 vote: this.vote,
                 musician_id: this.musicianId,
             };
-            axios
-                .post(this.apiReview, data)
+            axios.post(this.apiReview, data)
                 .then((response) => {
                     const responseData = response.data
-                console.log(responseData)
-                console.log(data)
+                //console.log(responseData)
+                //console.log(data)
 
                 if (this.response) {
                     this.clearForm();
