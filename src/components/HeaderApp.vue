@@ -1,11 +1,11 @@
 <template>
 
     <!-- navbar -->
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg">
     <div class="container">
 
         <!-- logo -->
-        <a class="navbar-brand text-dark" href="#">Nome Sito</a>
+        <a class="navbar-brand text-dark logo" href="#"><span class="specialText">BOO</span>SICIAN</a>
 
         <!-- Toggle btn -->
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -35,8 +35,8 @@
                 <div class="d-flex justify-content-center  align-items-center">
                     <ul class="d-flex flex-column  flex-lg-row m-0 gap-3 p-0">
                         <li class="list-unstyled">
-                            <button class="btn btn-small btn-primary" ><a href="http://127.0.0.1:8000/">Login</a></button>
-                            <button @click="redirectToLaravelLogin" class="btn btn-small btn-danger"><a href="http://127.0.0.1:8000/register">Register</a></button>
+                            <button class="btn btn-small btnSignIn" ><a href="http://127.0.0.1:8000/" class="firstBtnText fw-700">Accedi</a></button>
+                            <button @click="redirectToLaravelLogin" class="btn btn-small btnLogIn"><a href="http://127.0.0.1:8000/register" class="fw-700">Registrati</a></button>
                         </li>
                     </ul>
                 </div>
@@ -73,15 +73,15 @@ export default {
             links : [
                 {
                     route: './',
-                    name: 'HomePage'
+                    name: 'Home'
                 },
                 {
                     route: './advance-search',
-                    name: 'AdvanceSearch'
+                    name: 'Ricerca'
                 },
                 {
                     route: './DashboardMusician',
-                    name: 'DashboardMusician'
+                    name: 'Dashboard'
                 },
             ],
             
@@ -99,6 +99,8 @@ export default {
 
 
 <style lang="scss" scoped>
+@use '../styles/partials/_variables.scss' as variables;
+
     @media (max-width: 991px) {
         .sidebar{
             background-color: rgba(255, 255, 255, .15);
@@ -110,4 +112,31 @@ export default {
         text-decoration: none;
         color: white;
     }
+
+    nav{
+        background-color: variables.$primaryColor;
+
+        a.logo{
+            font-weight: 900;
+            font-size: 2.5rem;
+        }
+    }
+
+    .specialText{
+        color: variables.$secondaryColor;
+    }
+
+    .firstBtnText{
+        color: variables.$primaryColor;
+    }
+
+        button.btn.btnSignIn{
+            background-color: variables.$secondaryColor;
+            border-color: variables.$secondaryColor;
+            margin-right: 1rem;
+        }
+        button.btn.btnLogIn{
+            background-color: variables.$accentColor;
+            border-color: variables.$accentColor;
+        }
 </style>
