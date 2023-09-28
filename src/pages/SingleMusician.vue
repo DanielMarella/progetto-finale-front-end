@@ -4,7 +4,7 @@
     <div class="row">
         <div class="card col-10 mx-auto p-0 my-4">
             <div class="card-header my_card_header">
-                <h3>Schede Musicista</h3>
+                <h3 class="text-white">Schede Musicista</h3>
             </div>
             <div class="card-body row py-0">
                 <!-- Scheda di sx-->
@@ -64,7 +64,7 @@
     <div class="row">
         <div class="card col-10 mx-auto my-4 p-0">
             <div class="card-header">
-                <h3>Contatti</h3>
+                <h3 class="text-white">Contatti</h3>
             </div>
             <div class="card-body">
                 <div class="d-flex justify-content-evenly">
