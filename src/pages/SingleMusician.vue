@@ -3,19 +3,19 @@
     <!-- Scheda tecnica musicista -->
     <div class="row">
         <div class="card col-10 mx-auto p-0 my-4">
-            <div class="card-header">
+            <div class="card-header my_card_header">
                 <h3>Schede Musicista</h3>
             </div>
             <div class="card-body row py-0">
                 <!-- Scheda di sx-->
                 <div class="musicianInfo col-6 d-flex flex-column align-items-center justify-content-around">
-                    <h3 class="card-title">
+                    <h3 class="card-title text-capitalize">
                         {{ user.name }} {{ musicians.surname }}
                     </h3>
 
                     <div class="imageWrapper">
-                        <img v-if="musicians.image.startsWith('http')" :src="musicians.image" :alt="user.name + musicians.surname + ' image'">
-                        <img v-else :src=" 'http://127.0.0.1:8000/storage/' + musicians.image" :alt="user.name + musicians.surname + ' image'">
+                        <img v-if="musicians.image.startsWith('http')" :src="musicians.image" :alt="user.name + musicians.surname + ' image'" class="my_propic">
+                        <img v-else :src=" 'http://127.0.0.1:8000/storage/' + musicians.image" :alt="user.name + musicians.surname + ' image'" class="my_propic">
                     </div>
                     
                     <p class="card-text fs-5">
@@ -27,12 +27,8 @@
                 <div class="musician-skill col-6 border-start">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex gap-3">
-                            <span>
-                                <strong>Strumenti</strong>:
-                            </span>
-
-                            <p v-for="instrument in musicalInstrument" class="m-0">
-                                {{ instrument.name }}
+                            <p v-for="instrument in musicalInstrument" class="m-0 text-capitalize">
+                                <strong>Strumenti</strong>: {{ instrument.name }}
                             </p>
                         </li>
                         
@@ -57,7 +53,8 @@
 
             <!-- Form Recensione --> 
             <div class="card-footer text-center">
-                <button type="button" class="btn btn-primary" @click="becomesActiveReview()">Lascia una recensione</button>
+                <button type="button" class="my_btn" @click="becomesActiveReview()">Lascia una recensione</button>
+                <MusicianReview :class="activeReview"/>
                 <ReviewForm :class="activeReview"/>
             </div>
         </div>
@@ -80,7 +77,7 @@
                     </p>
                 </div>
                 <div class="text-center">
-                    <button type="button" class="btn btn-primary " @click="becomesActiveMex()">Contatta il musicista</button>
+                    <button type="button" class="my_btn" @click="becomesActiveMex()">Contatta il musicista</button>
                 </div>
                 <ContactForm :class="activeMex"/>
             </div>    
@@ -96,6 +93,7 @@
 import axios from 'axios';
 import ReviewForm from '../components/ReviewForm.vue';
 import ContactForm from '../components/ContactForm.vue';
+import MusicianReview from '../components/MusicianReview.vue';
 
 
 export default {
@@ -103,7 +101,8 @@ export default {
 
     components:{
         ReviewForm,
-        ContactForm
+        ContactForm,
+        MusicianReview
     },
 
     props: [
@@ -176,5 +175,45 @@ export default {
             height: 300px;
         }
     }
+
+    div.my_bg_orange{
+        background-color: #f88936;
+    }
+
+    button.my_btn{
+        background-color: #f88936;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: .4rem;
+    }
+
+    button.my_btn:hover{
+        background-color: #f07313;
+    }
+
+    @media(max-width: 768px){
+        div.imageWrapper{
+            img.my_propic{
+                width: 100px;
+                height: 100px;
+            }
+        }
+    }
+
+    @media(min-width: 992px){
+        div.imageWrapper{
+            img.my_propic{
+                width: 250px;
+                height: 250px;
+            }
+        }
+    }
+
 
 </style>
