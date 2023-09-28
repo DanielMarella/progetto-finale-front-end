@@ -1,15 +1,15 @@
 <template>
     <router-link :to="{name:'SingleMusician', params:{ id: musicianInfo.user_id }}" @click="saveCurrentId(musicianInfo.user_id)">
         <div class="card text-center my-4 my_card p-2">
-            <span class="fs-2">{{ musicianInfo.user.name }}</span>
-            <span class="fs-2">{{ musicianInfo.surname }}</span>
+            <span class="fs-2 text-capitalize">{{ musicianInfo.user.name }}</span>
+            <span class="fs-2 text-capitalize">{{ musicianInfo.surname }}</span>
             
             <div class="image">
                 <img v-if="musicianInfo.image.startsWith('http')" :src="musicianInfo.image" :alt="musicianInfo.user.name + ' ' + musicianInfo.surname + ' image'">
                 <img v-else :src="'http://127.0.0.1:8000/storage/' + musicianInfo.image " :alt="musicianInfo.user.name + ' ' + musicianInfo.surname + ' image'">
             </div>
             
-            <p class="fs-4">
+            <p class="fs-4 text-capitalize">
                 Strumenti: {{ musicianInfo.musical_instruments.map(instrument => instrument.name).join(', ') }}
             </p>
             <p class="fs-4">Genere: {{ musicianInfo.musical_genre }} </p>
