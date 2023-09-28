@@ -2,7 +2,7 @@
 
 <template>
 
-    <form @submit.prevent="sendContactForm" @reset.prevent="clearForm">
+    <form @submit.prevent="sendContactForm" @reset.prevent="clearForm" class="d-flex my-3 col-10 pb-3">
 
         <div class="form-element info" v-if="response === false">
             <h3>
@@ -12,33 +12,25 @@
         </div>
 
         <div class="form-element">
-            <p>Type your name</p>
-            <input type="text" v-model="name">
+            <label class="form-label">Inserisci il tuo nome</label>
+            <input type="text" class="form-control" v-model="name">
         </div>
         <div class="form-element">
-            <p>Type your email</p>
-            <input type="email" v-model="mail">
+            <label class="form-label">Inserisci mail per esser ricontattati</label>
+            <input type="email" class="form-control" v-model="mail">
         </div>
 
         <div class="form-element">
-            <p>Type your message</p>
-            <input type="text" v-model="message">
+            <label class="form-label">Scrivi qui il tuo messaggio</label>
+            <input type="text" class="form-control" v-model="message">
         </div>
 
         <div class="task-bar">
-            <button type="submit">Send contact form</button>
-            <button type="reset">Reset contact form</button>
+            <button type="submit" class="btn btn-outline-success">Invia messaggio</button>
+            <button type="reset" class="btn btn-outline-secondary">Resetta form</button>
         </div>
     </form>
 </template>
-
-
-
-
-
-
-
-
 
 <script>
 import axios from 'axios';
