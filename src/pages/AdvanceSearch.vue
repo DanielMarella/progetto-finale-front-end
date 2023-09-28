@@ -21,8 +21,15 @@
                 <div class=" mx-auto d-flex flex-column align-items-center py-3">
                     <p>Inserisci uno strumento che vuoi cercare</p>
                     <form class="d-flex" role="search" @submit.prevent>
-                        <input class="form-control me-2" type="text" placeholder="Search" name="search-bar" id="search-bar" v-model="filteredText" @keyup="searchBar()">
-                        <button class="btn btn-outline-success" type="submit" >Search</button>
+                        <select id="musicalInstruments" v-model="genreValue"  @change="searchBarOnChange">
+                            <option value="none">Scegli lo strumento</option>
+                            <option value="tromba">tromba</option>
+                            <option value="batteria">batteria</option>
+                            <option value="chitarra">chitarra</option>
+                            <option value="basso">basso</option>
+                            <option value="sax">sax</option>
+                            <option value="violino">violino</option>
+                        </select>
                     </form>
                 </div>
             </section>
@@ -169,18 +176,48 @@ export default {
         },
 
 
+        searchBarOnChange() {
+    if (this.genreValue !== 'none') {
 
-        searchBar() {
-        let searchedText = this.filteredText.toLowerCase();
-
-        this.filteredMusicians = this.filterMusiciansByKeyword(this.musicians, searchedText);
-        this.orderedMusicians = this.filterMusiciansByKeyword(this.originalOrderedMusicians, searchedText);
-        this.orderedSumMusicians = this.filterMusiciansByKeyword(this.originalOrderedSumMusicians, searchedText);
-
-        this.mergedMusicians = this.musicians.filter((musician) => {
-            return this.filterMusiciansByKeyword([musician], searchedText).length > 0;
+        this.filteredMusicians = this.musicians.filter((musician) => {
+            return musician.musical_instruments.some((instrument) => {
+                return instrument.name.toLowerCase() === this.genreValue;
+            });
         });
-    },
+        this.orderedMusicians = this.originalOrderedMusicians.filter((musician) => {
+            return musician.musical_instruments.some((instrument) => {
+                return instrument.name.toLowerCase() === this.genreValue;
+            });
+        });
+        this.orderedSumMusicians = this.originalOrderedSumMusicians.filter((musician) => {
+            return musician.musical_instruments.some((instrument) => {
+                return instrument.name.toLowerCase() === this.genreValue;
+            });
+        });
+        this.mergedMusicians = this.musicians.filter((musician) => {
+            return this.filterMusiciansByKeyword([musician], '').length > 0;
+        });
+    } else {
+        // Se "Scegli lo strumento" è selezionato, mostra tutti i musicisti
+        this.filteredMusicians = this.musicians;
+        this.orderedMusicians = this.originalOrderedMusicians;
+        this.orderedSumMusicians = this.originalOrderedSumMusicians;
+        this.mergedMusicians = this.musicians;
+    }
+},
+
+
+    //     searchBar() {
+    //     let searchedText = this.filteredText.toLowerCase();
+
+    //     this.filteredMusicians = this.filterMusiciansByKeyword(this.musicians, searchedText);
+    //     this.orderedMusicians = this.filterMusiciansByKeyword(this.originalOrderedMusicians, searchedText);
+    //     this.orderedSumMusicians = this.filterMusiciansByKeyword(this.originalOrderedSumMusicians, searchedText);
+
+    //     this.mergedMusicians = this.musicians.filter((musician) => {
+    //         return this.filterMusiciansByKeyword([musician], searchedText).length > 0;
+    //     });
+    // },
 
     filterMusiciansByKeyword(musiciansArray, keyword) {
         return musiciansArray.filter((musician) => {
@@ -200,7 +237,7 @@ export default {
         //Chiamata api
         this.getMusiciansApi(),
         this.getMusiciansSumApi(),
-
+   
         //Rimuove l'animazione del caricamento dopo 1 secondo, da cambiare con un metodo migliore
         setTimeout(() => {
             this.isLoading = false
