@@ -25,8 +25,8 @@
             <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
                 <ul class="navbar-nav justify-content-center align-items-center flex-grow-1 pe-3">
                     <li class="nav-item mx-2 my-3" v-for="link in links">
-                        <router-link :to="link.route" class="text-black text-decoration-none px-3">
-                        {{ link.name }}
+                        <router-link :to="{name:link.name}" class="text-black text-decoration-none px-3">
+                        {{ link.label }}
                         </router-link>
                     </li>
                 </ul>
@@ -44,19 +44,6 @@
         </div>
     </div>
 </nav>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </template>
