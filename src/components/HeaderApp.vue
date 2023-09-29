@@ -79,6 +79,10 @@ export default {
                     route: './advance-search',
                     name: 'Ricerca'
                 },
+                {
+                    route: './SponsoredMusician',
+                    name: 'Sponsored'
+                },
             ],
             
 
