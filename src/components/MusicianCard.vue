@@ -14,7 +14,8 @@
             </p>
             <p class="fs-4">Genere: {{ musicianInfo.musical_genre }} </p>
             <p class="fs-4">A serata: {{ musicianInfo.price }} &euro;</p>
-            <p>Recensioni totali ricevute: {{musicianInfo.reviews.length}}</p>
+
+
 
             <div>
                 <span v-for="n in getAvarage()">
