@@ -26,6 +26,14 @@
             <button type="submit" class="btn btn-outline-success">Invia recensione</button>
             <button type="reset" class="btn btn-outline-secondary">Resetta form</button>
         </div>
+
+        <div :class="activeAlert">
+            <transition name="fade" mode="out-in">
+                <div class="my_alert">
+                    <p>Recensione inviata con successo</p>
+                </div>
+            </transition>
+        </div>
     </form>
 </template>
 
@@ -42,6 +50,7 @@ export default {
             vote: '',
             musicianId: '',
 
+            activeAlert: 'd-none'
         };
     },
     methods: {
@@ -63,9 +72,11 @@ export default {
                     const responseData = response.data
                 //console.log(responseData)
                 //console.log(data)
+                
 
-                if (this.response) {
+                if (responseData.success) {
                     this.clearForm();
+                    this.setActiveAlert();
                 }
                 else {
                     this.errors = response.data.errors;
@@ -82,6 +93,18 @@ export default {
         clearForm() {
             this.vote = '';
             this.content = '';
+        },
+
+        setActiveAlert(){
+            if(this.activeAlert == 'd-none'){
+                this.activeAlert = 'd-block my_alert_container';
+
+                setTimeout(() => {
+                    this.activeAlert = 'd-none';
+                }, 2000);
+            }else{
+                this.activeAlert = 'd-none';
+            }
         }
     },
     created() {
@@ -113,4 +136,26 @@ export default {
             margin-right: 1rem;
         }
     }
+
+    div.my_alert_container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        
+        div.my_alert {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+    }
+
 </style>
