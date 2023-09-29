@@ -29,6 +29,14 @@
             <button type="submit" class="btn btn-outline-success">Invia messaggio</button>
             <button type="reset" class="btn btn-outline-secondary">Resetta form</button>
         </div>
+
+        <div :class="activeAlert">
+            <transition name="fade" mode="out-in">
+                <div class="my_alert">
+                    <p>Messaggio inviato con successo</p>
+                </div>
+            </transition>
+        </div>
     </form>
 </template>
 
@@ -47,6 +55,8 @@ export default {
             message: '',
             musicianId: '',
             response: true,
+
+            activeAlert: 'd-none'
         }  
     },
     
@@ -74,6 +84,7 @@ export default {
                 console.log(data)
                 if (response.data.success) {
                 this.clearForm();
+                this.setActiveAlert();
                 } else {
                     this.errors = response.data.errors;
                 }
@@ -91,6 +102,18 @@ export default {
             this.mail = '';
             this.message = '';
 
+        },
+
+        setActiveAlert(){
+            if(this.activeAlert == 'd-none'){
+                this.activeAlert = 'd-block my_alert_container';
+
+                setTimeout(() => {
+                    this.activeAlert = 'd-none';
+                }, 2000);
+            }else{
+                this.activeAlert = 'd-none';
+            }
         }
 
     },
