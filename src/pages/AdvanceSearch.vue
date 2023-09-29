@@ -5,7 +5,7 @@
 
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="isAverage">
-                <label class="form-check-label" for="flexCheckDefault">Media di recensioni</label>
+                <label class="form-check-label" for="flexCheckDefault">Media di voto</label>
             </div>
 
             <div class="form-check">
@@ -39,6 +39,7 @@
                     <div class="row">
                         <div v-if="isAverage && isTotal" class="col-lg-4 col-md-6 col-sm-12" v-for="musician in mergedMusicians">
                             <MusicianCard :musicianInfo="musician" @average-num="onAverageNumChanged"/>
+
                         </div>
 
                         <div v-else-if="isAverage" class="col-lg-4 col-md-6 col-sm-12" v-for="musician in orderedMusicians">
@@ -55,6 +56,7 @@
                             
                             <MusicianCard :musicianInfo="musician" @average-num="onAverageNumChanged"/>
                         </div>
+
                     </div>
 
 
@@ -231,6 +233,92 @@ export default {
         onAverageNumChanged(averageNum){
             this.averageNumFromChild = averageNum;
         },
+
+
+
+
+        isMusicianActive(musician) {
+        // Verifica se "sponsors" è un array valido
+        if (Array.isArray(musician.sponsors)) {
+            // Cicla attraverso gli sponsor
+            for (const sponsor of musician.sponsors) {
+            // Verifica se "pivot.active" è uguale a 1
+            if (sponsor.pivot && sponsor.pivot.active === 1) {
+                return true; // Il musicista è attivo
+            }
+            }
+        }
+            return false; // Il musicista non è attivo o "sponsors" non è un array valido
+        },
+
+
+        filterActiveMusicians() {
+        return this.filteredMusicians.filter((musician) => {
+            return this.isMusicianActive(musician);
+            });
+        },
+
+
+        getSponsorType(musician) {
+            // Verifica se "sponsors" è un array valido all'interno dell'oggetto "musician"
+            if (Array.isArray(musician.sponsors)) {
+                // Cicla attraverso gli sponsor
+                for (const sponsor of musician.sponsors) {
+                // Verifica se "sponsor_type" esiste ed è una stringa valida
+                if (sponsor.sponsor_type && typeof sponsor.sponsor_type === 'string') {
+                    return sponsor.sponsor_type; // Restituisci il tipo di sponsor
+                }
+                }
+            }
+            return ''; // Restituisci una stringa vuota se il tipo di sponsor non è trovato o "sponsors" non è un array valido
+            },
+                getSponsorClass(musician) {
+                // Verifica il valore di "sponsor_type" e restituisci una classe appropriata
+                if (musician.sponsors && musician.sponsors.length > 0) {
+                const sponsorType = musician.sponsors[0].sponsor_type;
+                if (sponsorType === 'gold') {
+                    return 'gold-sponsor'; // Classe CSS per gli sponsor di tipo "gold"
+                } else if (sponsorType === 'silver') {
+                    return 'silver-sponsor'; // Classe CSS per gli sponsor di tipo "silver"
+                }
+                }
+                // Restituisci una classe predefinita se non è presente uno sponsor o il tipo di sponsor non è noto
+                return 'default-sponsor';
+            },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     },
 
     created() {
@@ -304,4 +392,17 @@ div:nth-child(3) {
 }
 }
 
+
+
+.gold-sponsor {
+    order: 1;
+}
+
+.silver-sponsor {
+  order: 2;
+}
+
+.default-sponsor {
+  order: 3;
+}
 </style>
