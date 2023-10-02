@@ -9,7 +9,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-12" v-for="musician in filterActiveMusicians()" :key="musician.id" :class="getSponsorClass(musician)">
                         <MusicianCard :musicianInfo="musician" />
                               <!-- <p>Tipo di Sponsor: {{ getSponsorType(musician) }}</p> -->
-                              <p v-if="getSponsorType(musician) === 'gold'">
+                              <!-- <p v-if="getSponsorType(musician) === 'gold'">
                                 <i class="fa-solid fa-certificate" style="color: gold;"></i>
                               </p>
                               <p v-else-if="getSponsorType(musician) === 'silver'">
@@ -17,7 +17,7 @@
                               </p>
                               <p v-else>
                                 <i class="fa-solid fa-certificate" style="color: chocolate;"></i>
-                              </p>
+                              </p> -->
                         </div>
                     </div>
                     <!--Rotella caricamento-->
