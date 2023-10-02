@@ -8,7 +8,16 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-6 col-sm-12" v-for="musician in filterActiveMusicians()" :key="musician.id" :class="getSponsorClass(musician)">
                         <MusicianCard :musicianInfo="musician" />
-                              <p>Tipo di Sponsor: {{ getSponsorType(musician) }}</p>
+                              <!-- <p>Tipo di Sponsor: {{ getSponsorType(musician) }}</p> -->
+                              <p v-if="getSponsorType(musician) === 'gold'">
+                                <i class="fa-solid fa-certificate" style="color: gold;"></i>
+                              </p>
+                              <p v-else-if="getSponsorType(musician) === 'silver'">
+                                <i class="fa-solid fa-certificate" style="color: silver;"></i>
+                              </p>
+                              <p v-else>
+                                <i class="fa-solid fa-certificate" style="color: chocolate;"></i>
+                              </p>
                         </div>
                     </div>
                     <!--Rotella caricamento-->
@@ -29,7 +38,7 @@ import axios from 'axios';
 import MusicianCard from '../components/MusicianCard.vue'
 
 export default {
-    name: 'AdvanceSearch',
+    name: 'SponsoredMusician',
 
     data(){
         return{
@@ -104,6 +113,7 @@ export default {
                 for (const sponsor of musician.sponsors) {
                 // Verifica se "sponsor_type" esiste ed è una stringa valida
                 if (sponsor.sponsor_type && typeof sponsor.sponsor_type === 'string') {
+                    // console.log(sponsor.sponsor_type);
                     return sponsor.sponsor_type; // Restituisci il tipo di sponsor
                 }
                 }

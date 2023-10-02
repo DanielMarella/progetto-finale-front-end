@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import HomePage from './pages/HomePage.vue';
 import AdvanceSearch from './pages/AdvanceSearch.vue';
-import SponsoredMusician from './pages/SponsoredMusician.vue';
 import SingleMusician from './pages/SingleMusician.vue';
 
 
@@ -29,13 +28,7 @@ const router= createRouter({
             path: '/SingleMusician/:id',
             name: 'SingleMusician',
             component: SingleMusician,
-        },
-        {
-            path: '/SponsoredMusician',
-            name: 'SponsoredMusician',
-            component: SponsoredMusician,
-        },
-        
+        }
 
     ]
 
