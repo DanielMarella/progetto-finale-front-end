@@ -339,15 +339,16 @@ export default {
 
 
 <style lang="scss" scoped>
+@use '../styles/partials/_variables.scss' as variables;
 
 section.results-zone{
-    background-color: lightblue;
+    background-color: variables.$secondaryColor;
     width: calc(100vw - 250px);
 }
 
 
 section.my_bg{
-    background-color: lightgrey;
+    background-color: variables.$primaryColor;
 }
 
 //Animazione caricamento
