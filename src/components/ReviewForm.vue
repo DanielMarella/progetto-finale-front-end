@@ -13,13 +13,16 @@
 
         <div class="form-element">
             <label class="form-label">Recensiona qui il musicista</label>
-            <input type="text"  class="form-control" v-model="content">
+            <input type="text" class="form-control" v-model="content">
         </div>
 
         <div class="form-element">
             <label class="form-label">Lascia un voto</label>
-            <input type="number"  class="form-control" v-model="vote">
+            <input type="range" class="form-control" min="1" max="5" v-model="vote">
             <p class="form-text">5 è il massimo voto che puoi inserire ... Non esagerare</p>
+            <span class="d-flex justify-content-center align-items-center w-0">
+                <i v-for="star in parseInt(vote)" :key="star" class="fa-solid fa-star"></i>
+            </span>
         </div>
 
         <div class="task-bar">
@@ -47,7 +50,7 @@ export default {
             apiUrl: "http://127.0.0.1:8000/api/musicians",
             apiReview: 'http://127.0.0.1:8000/api/review-form',
             content: '',
-            vote: '',
+            vote: 1,
             musicianId: '',
 
             activeAlert: 'd-none'
@@ -57,7 +60,7 @@ export default {
 
         GetMusiciansApi() {
             axios.get(`${this.apiUrl}/${this.$route.params.id}`).then((response) => {
-                this.musicianId= response.data.results.id;
+                this.musicianId = response.data.results.id;
             });
         },
 
@@ -70,39 +73,39 @@ export default {
             axios.post(this.apiReview, data)
                 .then((response) => {
                     const responseData = response.data
-                //console.log(responseData)
-                //console.log(data)
-                
+                    //console.log(responseData)
+                    //console.log(data)
 
-                if (responseData.success) {
-                    this.clearForm();
-                    this.setActiveAlert();
-                }
-                else {
-                    this.errors = response.data.errors;
-                    console.log(this.errors);
-                }
-            })
+
+                    if (responseData.success) {
+                        this.clearForm();
+                        this.setActiveAlert();
+                    }
+                    else {
+                        this.errors = response.data.errors;
+                        console.log(this.errors);
+                    }
+                })
                 .catch((error) => {
-                console.error('Errore Axios:', error);
-                this.response = false;
-                this.errors = error.response.data ? error.response.data.message : 'Errore sconosciuto';
-                console.log(this.response);
-            });
+                    console.error('Errore Axios:', error);
+                    this.response = false;
+                    this.errors = error.response.data ? error.response.data.message : 'Errore sconosciuto';
+                    console.log(this.response);
+                });
         },
         clearForm() {
-            this.vote = '';
+            this.vote = 1;
             this.content = '';
         },
 
-        setActiveAlert(){
-            if(this.activeAlert == 'd-none'){
+        setActiveAlert() {
+            if (this.activeAlert == 'd-none') {
                 this.activeAlert = 'd-block my_alert_container';
 
                 setTimeout(() => {
                     this.activeAlert = 'd-none';
                 }, 2000);
-            }else{
+            } else {
                 this.activeAlert = 'd-none';
             }
         }
@@ -114,48 +117,47 @@ export default {
 </script>
 
 <style lang="scss">
-    form {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        width: 100%;
-        margin: 0 auto;
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0 auto;
 
-        div.form-element{
-            width: 70%;
-            margin-bottom: 1rem;
+    div.form-element {
+        width: 70%;
+        margin-bottom: 1rem;
 
-            *{
-                width: 100%;
-            }
-        }
-
-        button {
-            padding: 1rem 2rem;
-            margin-right: 1rem;
+        * {
+            width: 100%;
         }
     }
 
-    div.my_alert_container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 999;
-        
-        div.my_alert {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        }
+    button {
+        padding: 1rem 2rem;
+        margin-right: 1rem;
     }
+}
 
+div.my_alert_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+
+    div.my_alert {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+}
 </style>
