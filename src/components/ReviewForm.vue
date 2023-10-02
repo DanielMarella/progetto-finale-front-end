@@ -19,15 +19,15 @@
         <div class="form-element">
             <label class="form-label">Lascia un voto</label>
             <input type="range" class="form-control" min="1" max="5" v-model="vote">
-            <p class="form-text">5 è il massimo voto che puoi inserire ... Non esagerare</p>
+            <p class="form-text">Voto</p>
             <span class="d-flex justify-content-center align-items-center w-0">
-                <i v-for="star in parseInt(vote)" :key="star" class="fa-solid fa-star"></i>
+                <i v-for="star in parseInt(vote)" :key="star" class="fa-solid fa-star gold-color px-1"></i>
             </span>
         </div>
 
         <div class="task-bar">
-            <button type="submit" class="btn btn-outline-success">Invia recensione</button>
-            <button type="reset" class="btn btn-outline-secondary">Resetta form</button>
+            <button type="submit" class="btn btn-outline-success mt-4">Invia recensione</button>
+            <button type="reset" class="btn btn-outline-secondary mt-4">Resetta form</button>
         </div>
 
         <div :class="activeAlert">
@@ -130,7 +130,12 @@ form {
         margin-bottom: 1rem;
 
         * {
-            width: 100%;
+            //width: 100%;
+        }
+
+        i {
+            font-size: 1.4rem;
+            color: #FFD700;
         }
     }
 

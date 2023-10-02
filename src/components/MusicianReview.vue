@@ -1,12 +1,12 @@
 <template>
     <div class="card mt-2">
         <div class="card-header">
-            <h2 class="text-white">Recensioni</h2>
+            <h2>Recensioni</h2>
         </div>
 
         <div class="card-body">
             <div v-for="(review, index) in reviews" class="my_review_container">
-                <div :class="['my_reviews mb-3', {'no_border': isLastReview(index)} ]">
+                <div :class="['my_reviews mb-3', { 'no_border': isLastReview(index) }]">
                     <p class="fs-5">"{{ review.content }}"</p>
                     <span v-for="n in 5" :class="getVoteIcon(n, review.vote)"></span>
                     <p class="my_fs">Scritta in data: {{ review.created_at.slice(0, 10) }}</p>
@@ -36,20 +36,20 @@ export default {
 
         GetMusiciansApi() {
             axios.get(`${this.apiUrl}/${this.$route.params.id}`).then((response) => {
-                this.musicianId= response.data.results.id;
+                this.musicianId = response.data.results.id;
 
                 this.reviews = response.data.results.reviews;
             });
         },
 
-        getVoteIcon(iconNumber, vote){
-            return{
+        getVoteIcon(iconNumber, vote) {
+            return {
                 "fa-solid fa-music pe-2 pb-3 text-primary": iconNumber <= vote,
                 "fa-solid fa-music pe-2 pb-3 text-secondary": iconNumber > vote
             }
         },
 
-        isLastReview(index){
+        isLastReview(index) {
             return index === this.reviews.length - 1;
         }
     },
@@ -60,11 +60,10 @@ export default {
 </script>
 
 <style lang="scss">
-
-div.my_reviews{
+div.my_reviews {
     border-bottom: .5px solid lightgray;
 
-    p.my_fs{
+    p.my_fs {
         font-size: .8rem;
     }
 }
@@ -73,8 +72,8 @@ div.my_reviews.no_border {
     border-bottom: none;
 }
 
-div.card-header{
-    background-color: #f88936;
+div.card-header {
+    background-color: #ffffff;
 }
 
 //colore arancione: #f88936

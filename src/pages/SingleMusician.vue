@@ -62,8 +62,9 @@
                 <!-- Form Recensione -->
                 <div class="card-footer text-center">
                     <button type="button" class="my_btn" @click="becomesActiveReview()">Lascia una recensione</button>
-                    <MusicianReview :class="activeReview" />
                     <ReviewForm :class="activeReview" />
+                    <MusicianReview :class="activeReview" />
+
                 </div>
             </div>
         </div>
