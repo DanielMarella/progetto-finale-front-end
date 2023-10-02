@@ -26,8 +26,8 @@
         </div>
 
         <div class="task-bar">
-            <button type="submit" class="btn btn-outline-success">Invia recensione</button>
-            <button type="reset" class="btn btn-outline-secondary">Resetta form</button>
+            <button type="submit" class="btn btn-outline-success mt-4">Invia recensione</button>
+            <button type="reset" class="btn btn-outline-secondary mt-4">Resetta form</button>
         </div>
 
         <div :class="activeAlert">
