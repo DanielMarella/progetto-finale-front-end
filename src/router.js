@@ -2,8 +2,9 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import HomePage from './pages/HomePage.vue';
 import AdvanceSearch from './pages/AdvanceSearch.vue';
-import DashboardMusician from './pages/DashboardMusician.vue';
 import SingleMusician from './pages/SingleMusician.vue';
+
+
 
 
 
@@ -21,19 +22,13 @@ const router= createRouter({
             path: '/advance-search',
             name: 'AdvanceSearch',
             component: AdvanceSearch,
+            props: true,
         },
         {
-            path: '/DashboardMusician',
-            name: 'DashboardMusician',
-            component: DashboardMusician,
-        },
-        {
-            path: '/SingleMusician',
+            path: '/SingleMusician/:id',
             name: 'SingleMusician',
             component: SingleMusician,
-        },
-
-
+        }
 
     ]
 
